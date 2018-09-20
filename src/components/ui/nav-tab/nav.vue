@@ -21,7 +21,7 @@ export default {
   methods: {
     changeActive(data){
       this.id = data.id;
-      this.$router.push(data.path?'':'');
+      this.$router.push(data.path?data.path:'');
       localStorage.setItem("id",this.id);
     }
   }
