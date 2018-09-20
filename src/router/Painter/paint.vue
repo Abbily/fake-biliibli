@@ -1,13 +1,19 @@
 <template>
-  <div>
-    111111111
+  <div class="detail_container">
+    <slide/>
+    <RecommendPainter/>
+    <Recommendworks/>
   </div>
 </template>
 <script>
 import slide from './Slide/slide.vue';
+import RecommendPainter from './RecommendPainter/RecommendPainter.vue';
+import Recommendworks from './Recommendworks/Recommendworks.vue';
 export default {
   components:{
-    slide
+    slide,
+    RecommendPainter,
+    Recommendworks
   },
   data(){
     return {
@@ -16,3 +22,8 @@ export default {
   }
 }
 </script>
+<style>
+.detail_container{
+  height: 1000px;
+}
+</style>

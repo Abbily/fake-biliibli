@@ -144,7 +144,6 @@
         this.$refs.slideGroup.style.width = width + 'px'
       },
       _initSlide() {
-        console.log(this.threshold)
         this.slide = new BScroll(this.$refs.slide, {
           scrollX: true,
           scrollY: false,
@@ -232,7 +231,7 @@
       position: absolute
       right: 0
       left: 0
-      bottom: 15px
+      bottom: 2px
       transform: translateZ(1px)
       text-align: center
       font-size: 0

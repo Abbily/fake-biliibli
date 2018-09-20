@@ -51,16 +51,15 @@
 <style lang="stylus">
 
   .full-page-slide-wrapper
-    position: fixed
+    position: absolute
     z-index: 20
-    top: 0
     left: 0
+    top: 2.2rem;
     width: 100%
-    height: 100%
-    background: #efeff4
+    height: 2.2rem
     overflow: hidden
     .slide
-      height: 100%
+      height: 1.9rem
       .slide-group
         height: 100%
         .slide-item

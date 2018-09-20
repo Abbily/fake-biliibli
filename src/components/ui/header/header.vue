@@ -15,8 +15,10 @@
 
 <style lang="stylus">
 .header-name{
-  position: relative;
+  position: fixed;
   top: 0;
+  z-index: 23;
+  width:100%;
   height: 1.066666rem;
   background: #444;
   display: flex;

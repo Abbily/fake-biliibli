@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-if(process.env.NODE_ENV == 'development'){
-	axios.defaults.baseURL = '/api';
-}
+//if(process.env.NODE_ENV == 'development'){
+//	axios.defaults.baseURL = '/api';
+//}
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.timeout = 10000;
