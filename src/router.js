@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/paint',
     name: 'paint',
-    components: paint
+    component: paint
   }
 ]
 
