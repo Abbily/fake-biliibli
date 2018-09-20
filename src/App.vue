@@ -1,19 +1,20 @@
 <template>
   <div id="app">
     <v-header></v-header>
+    <v-nav></v-nav>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import header from '@/components/ui/header/header.vue'
+import nav from '@/components/ui/nav-tab/nav.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
-    'v-header': header
+    'v-header': header,
+    'v-nav': nav
   }
 }
 </script>

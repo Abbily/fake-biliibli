@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import {addClass} from '../until/dom.js';
+  import {addClass} from '../../until/dom.js';
   import BScroll from 'better-scroll'
 
   const COMPONENT_NAME = 'slide'

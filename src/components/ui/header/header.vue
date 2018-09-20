@@ -15,7 +15,6 @@
 
 <style lang="stylus">
 .header-name{
-  font-size: .373333rem;
   position: relative;
   top: 0;
   height: 1.066666rem;
@@ -23,9 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  .headTitle{
-    color: #ffffff;
-  }
+  box-shadow: 0 0.053333rem 0.053333rem #222;
   .space{
     img{
       width: 25px;

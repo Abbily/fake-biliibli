@@ -1,4 +1,10 @@
-html,body{
+html{
   font-size: 37.5px;
+}
+body{
+  font-size: .373333rem;
+  background: #333;
+  color: #fff;
+  overflow-x: hidden;
 }
 *{margin:0;padding: 0;}
