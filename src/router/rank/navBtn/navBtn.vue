@@ -16,6 +16,7 @@ export default {
   methods: {
     changeActive(id){
       this.id = id;
+      this.$emit('saveId',id);
     }
   }
 }
@@ -24,10 +25,10 @@ export default {
 .Rank-name{
   width:100%;
   position: fixed;
-  height: 1.6rem;
-  padding: .266666rem 0;
+  padding: .166666rem 0;
   box-sizing: border-box;
-  top: 2.2rem;
+  z-index: 22;
+  background: #333;
   .navBtn{
     display: flex;
     width: 4rem;
@@ -41,7 +42,7 @@ export default {
     .cate{
       width: 33.3%;
       text-align:center;
-      line-height:0.85rem;
+      line-height:0.8rem;
     }
     .cate-active{
       background: #bb828b;

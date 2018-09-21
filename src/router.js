@@ -4,6 +4,7 @@ Vue.use(VueRouter);
 
 const paint = () => import('@/router/Painter/paint.vue');
 const rank = () => import('@/router/rank/rank.vue');
+const activity = () => import('@/router/activity/activity.vue');
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/rank',
     name: 'rank',
     component: rank
+  },
+  {
+    path: '/activity',
+    name: 'activity',
+    component: activity
   }
 ]
 

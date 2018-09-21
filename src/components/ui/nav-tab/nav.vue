@@ -11,7 +11,7 @@
 export default {
   data(){
     return {
-      List:[{label:'画友',id:1,path:'/paint'},{label:'排行榜',id:2,path:'/rank'},{label:'活动中心',id:3}],
+      List:[{label:'画友',id:1,path:'/paint'},{label:'排行榜',id:2,path:'/rank'},{label:'活动中心',id:3,path:'/activity'}],
       id:1
     }
   },
@@ -30,7 +30,7 @@ export default {
 
 <style lang="stylus">
 .tab{
-  height: 1.188888rem;
+  height: 1.1rem;
   position: fixed;
   top: 1.066666rem;
   width: 100%;
@@ -39,7 +39,7 @@ export default {
     background: #333333;
     top: 1.066666rem;
     width: 100%;
-    height: 1.188888rem;
+    height: 1.1rem;
     display: flex;
     align-items: center;
     flex-flow: row nowrap;
