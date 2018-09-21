@@ -1,10 +1,13 @@
 <template>
   <div class="header-name">
+    <div class="space"></div>
     <div>
       <p class="headTitle">假bilibili分站--(゜-゜)つロ 干杯~</p>
     </div>
     <div class="space">
-      <img src="@/assets/images/search.png">
+      <div>
+        <img src="@/assets/images/search.png">
+      </div>
     </div>
   </div>
 </template>
@@ -26,9 +29,12 @@
   justify-content: center;
   box-shadow: 0 0.053333rem 0.053333rem #222;
   .space{
+    flex: 1;
     img{
       width: 25px;
       height: 25px;
+      float: right;
+      margin-right: 15px;
     }
   }
 }

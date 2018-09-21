@@ -3,10 +3,15 @@
     <p class="workers">推荐作品</p>
     <div class="ill_panel">
       <div class="card" v-for="item in data">
-        <div class="img_container"></div>
+        <div class="img_container">
+<!--          <img src="item.item.pictures[0].img_src"/>-->
+        </div>
         <div class="ill_title">{{item.item.title}}</div>
+        <div class="img_container">
+          <div class="img_box"><img :src="item.user.head_url"/></div>
+          <div class="ill_name">{{item.user.name}}</div>
+        </div>
 <!--        <div class="ill_header" :style="{'backgroundImage':'url('+item.user.head_url+')'}"></div>-->
-        <div class="ill_name">{{item.user.name}}</div>
       </div>
     </div>
   </div>
@@ -45,6 +50,21 @@ export default{
       box-sizing: border-box;
       overflow: hidden;
       margin-bottom: .266666rem;
+      .img_container{
+        display: flex;
+        align-items: center;
+        padding: .133333rem;
+        .img_box{
+          width: .6rem;
+          height: .6rem;
+          overflow: hidden;
+          border-radius: 50%;
+          margin-right: .133333rem;
+          img{
+            width: 100%;
+          }
+        }
+      }
     }
   }
 }

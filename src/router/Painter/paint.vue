@@ -24,6 +24,5 @@ export default {
 </script>
 <style>
 .detail_container{
-  height: 1000px;
 }
 </style>

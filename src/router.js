@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 const paint = () => import('@/router/Painter/paint.vue');
 const rank = () => import('@/router/rank/rank.vue');
 const activity = () => import('@/router/activity/activity.vue');
+const drawer = () => import('@/router/Painter/RecommendPainter/drawer.vue');
 
 const routes = [
   {
@@ -14,7 +15,14 @@ const routes = [
   {
     path: '/paint',
     name: 'paint',
-    component: paint
+    component: paint,
+    children: [
+      {
+        path: 'drawer',
+        name: 'drawer',
+        component: drawer,
+      }
+    ]
   },
   {
     path: '/rank',

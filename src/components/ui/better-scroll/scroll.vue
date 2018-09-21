@@ -2,7 +2,7 @@
   <div class="full-page-slide-wrapper">
     <slide ref="slide" :autoPlay="isAutoPlay" :loop="isLoop">
       <div v-for="(item, index) in items">
-        <div class="full-page-img-wrapper" :style="getStyle(index)">
+        <div class="full-page-img-wrapper" :style="getStyle(index)" @click="jumpUrl(item)">
 <!--
           <div v-if="index === items.length -1" class="button-wrapper" @click="handleClick()">
           </div>
@@ -42,7 +42,10 @@
         this.$emit('finish')
       },
       getStyle(index) {
-        return `background-image:url(${this.items[index]})`
+        return `background-image:url(${this.items[index].img_url})`
+      },
+      jumpUrl(item){
+        window.location.href=item.b_url;
       }
     }
   }
