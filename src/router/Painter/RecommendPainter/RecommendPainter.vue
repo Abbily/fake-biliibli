@@ -12,7 +12,7 @@
       </div>
     </div>
     <transition name="fade">
-      <drawer v-show="show"/>
+      <drawer v-show="show" @back="back"/>
     </transition>
   </div>
 </template>
@@ -30,9 +30,11 @@ export default {
   },
   methods: {
     jumpDetail(url){
-      console.log(url);
       this.show = !this.show;
-//      this.$router.push("/paint/drawer");
+      this.$router.push("/paint/drawer");
+    },
+    back(){
+      this.show = !this.show;
     }
   },
   created(){
@@ -55,7 +57,7 @@ export default {
   position: absolute;
   top: 4.6rem;
   .fade-enter-active, .fade-leave-active {
-    transition: all 0.5s;
+    transition: all 0.3s;
     transform: translate3d(0, 0, 0);
   }
   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {

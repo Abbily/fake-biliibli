@@ -2,7 +2,7 @@
   <div class="drawer-Deatil">
     <div class="b_header">
       <div class="space">
-        <img src="@/assets/images/left.png"/>
+        <img src="@/assets/images/left.png" @click="back"/>
       </div>
       <div>作品详情</div>
       <div class="space"></div>
@@ -41,6 +41,10 @@ export default {
     })
   },
   methods: {
+    back(){
+      history.back();
+      this.$emit('back',true);
+    }
   }
 }
 </script>
