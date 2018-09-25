@@ -53,7 +53,7 @@ export default {
     transition: all 0.3s;
     transform: translate3d(0, 0, 0);
   }
-  .fade-enter, .fade-leave-to {
+  .fade-enter, .fade-leave-active {
     transform: translate3d(375px, 0, 0);
   }
   .painter-author{

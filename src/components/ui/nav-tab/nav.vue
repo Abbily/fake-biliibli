@@ -33,20 +33,19 @@ export default {
   height: 1.1rem;
   position: fixed;
   top: 1.066666rem;
-  width: 100%;
   z-index: 22;
+  width: 100%;
   .nav-tab{
     background: #333333;
     top: 1.066666rem;
-    width: 100%;
     height: 1.1rem;
     display: flex;
     align-items: center;
-    flex-flow: row nowrap;
     line-height: 0.899999rem;
+    justify-content: center;
     .tab-item{
+      flex: 1;
       text-align: center;
-      width: 33.3%;
     }
     .tab-item-active{
       border-bottom: .026666rem solid #fc6;
