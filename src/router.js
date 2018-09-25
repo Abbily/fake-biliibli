@@ -18,8 +18,8 @@ const routes = [
     component: paint,
     children: [
       {
-        path: 'drawer',
-        name: 'drawer',
+        path: 'drawer/:id',
+        name: '/drawer',
         component: drawer,
       }
     ]

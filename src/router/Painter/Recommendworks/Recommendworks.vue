@@ -2,13 +2,15 @@
   <div class="worker-name">
     <p class="workers">推荐作品</p>
     <div class="ill_panel">
-      <div class="card" v-for="item in data">
+      <div class="card" v-for="item in data" @click="jumpDetail(item)">
         <div class="img_container">
 <!--          <img src="item.item.pictures[0].img_src"/>-->
         </div>
         <div class="ill_title">{{item.item.title}}</div>
         <div class="img_container">
-          <div class="img_box"><img :src="item.user.head_url"/></div>
+          <div class="img_box">
+<!--            <img :src="item.user.head_url"/>-->
+          </div>
           <div class="ill_name">{{item.user.name}}</div>
         </div>
 <!--        <div class="ill_header" :style="{'backgroundImage':'url('+item.user.head_url+')'}"></div>-->
@@ -28,6 +30,11 @@ export default{
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/recommends?page='+this.i).then(res=>{
       this.data = res.data.data.items;
     })
+  },
+  methods: {
+    jumpDetail(data){
+      console.log(data);
+    }
   }
 }
 </script>

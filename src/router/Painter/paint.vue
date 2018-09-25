@@ -1,7 +1,7 @@
 <template>
-  <div class="detail_container">
+  <div class="detail_container" v-if="show">
     <slide/>
-    <RecommendPainter/>
+    <RecommendPainter @hid="hid"/>
     <Recommendworks/>
   </div>
 </template>
@@ -17,7 +17,12 @@ export default {
   },
   data(){
     return {
-
+      show: true
+    }
+  },
+  methods: {
+    hid(){
+      this.show = !this.show;
     }
   }
 }

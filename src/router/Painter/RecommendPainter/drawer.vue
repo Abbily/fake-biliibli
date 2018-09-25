@@ -21,8 +21,29 @@
           <span class="level">UP{{data.user.next_master_level
 }}</span>
         </span>
-        <span class="grp_feed"></span>
-        <div class="focus_btn"></div>
+        <span class="grp_feed">
+          <span class="feed right">关注:</span>
+          <span class="feed left">粉丝:{{data.feed.fans_count
+}}</span>
+        </span>
+        <div class="focus_btn">关注</div>
+      </div>
+    </div>
+    <div class="battle-name">
+      <p class="battle-room">直播间: 战斗之夜</p>
+      <div class="room">
+        <a :href="data.room.room_link">
+          <div class="img_container"><img :src="data.room.cover"></div>
+        </a>
+      </div>
+    </div>
+    <div class="picture">
+      <p class="picture-room">相簿</p>
+      <div class="illustration">
+        <div class="pic_container" v-for="item in pic">
+<!--          <img :src="item.pictures[0].img_src"/>-->
+          <img src="https://i0.hdslb.com/bfs/album/a17904846909109ccd9d9a3d8c40ae831b0e41af.jpg"/>
+        </div>
       </div>
     </div>
   </div>
@@ -31,18 +52,21 @@
 export default {
   data(){
     return {
-      data:''
+      data:'',
+      pic: ''
     }
   },
   created(){
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid=7905675').then(res=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
       this.data = res.data.data;
-      console.log(res.data.data);
+    })
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawerillustration?uid='+this.$route.params.id).then(res=>{
+      this.pic = res.data.data.items;
     })
   },
   methods: {
     back(){
-      history.back();
+      this.$router.push('/paint');
       this.$emit('back',true);
     }
   }
@@ -55,6 +79,8 @@ export default {
   top: -4.66rem;
   z-index: 24;
   width: 100%;
+  height: 1000px;
+  overflow: hidden;
   height: 1000px;
   .b_header{
     position: relative;
@@ -99,12 +125,14 @@ export default {
       }
     }
     .drawer_circle{
-      width: 3rem;
-      height: 3rem;
+      width: 2.8rem;
+      height: 2.8rem;
       border-radius: 50%;
       border: .0533333rem solid #fc6;
       overflow: hidden;
-      margin-top: -1rem;
+      img{
+        width: 100%;
+      }
     }
     .userInfo{
       width: 100%;
@@ -118,16 +146,92 @@ export default {
         margin-top: 10px;
       }
       .grp{
-        margin-top: .266666rem;
+        margin-top: .166666rem;
         .level{
           display: inline-block;
           margin: 0 .266666rem;
           border-radius: .053333rem;
-          font-size: .32rem;
+          font-size: .16rem;
           border: 1px solid #a068f1;
           color: #a068f1;
           font-weight: 700;
           padding: .053333rem .08rem;
+        }
+      }
+      .grp_feed{
+        margin-top: .166666rem;
+        text-align: center;
+        width: 100%;
+        .left{
+          text-align: left;
+        }
+        .right{
+          text-align:right;
+        }
+        .feed{
+          margin: 0 .266666rem;
+          display: inline-block;
+          width: 2.66666rem;
+          white-space: nowrap;
+        }
+      }
+      .focus_btn{
+        box-sizing: border-box;
+        margin: 0 auto;
+        width: 2rem;
+        height: .653333rem;
+        line-height: .653333rem;
+        text-align: center;
+        font-size: .373333rem;
+        color: #fff;
+        background-color: #23ade6;
+        border-radius: .106666rem;
+        cursor: pointer;
+        margin-top: .173333rem;
+        font-size: .32rem;
+      }
+    }
+  }
+  .battle-name{
+    .battle-room{
+      background: #fb6b55;
+      padding: 0.133333rem 0 0.133333rem 0.133333rem;
+      border-left: 0.133333rem solid #c0c46d;
+    }
+    .room{
+      width: 5.28rem;
+      height: 3.306666rem;
+      border-radius: .133333rem;
+      margin: .266666rem auto;
+      overflow: hidden;
+      a{
+        text-decoration: none;
+        color: #fff;
+        .img_container{
+          img{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .picture{
+    .picture-room{
+      background: #fb6b55;
+      padding: 0.133333rem 0 0.133333rem 0.133333rem;
+      border-left: 0.133333rem solid #c0c46d;
+    }
+    .illustration{
+      width: 375px;
+      pointer-events: auto;
+      .pic_container{
+        float: left;
+        border-radius: .133333rem;
+        overflow: hidden;
+        margin: 6px;
+        width: 30%;
+        img{
+          width: 100%;
         }
       }
     }
