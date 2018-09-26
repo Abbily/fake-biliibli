@@ -1,5 +1,5 @@
 <template>
-  <div id="card">
+  <div id="card" @click="jumpDetail(illData)">
     <div class="ill_panel">
       <div class="ill_title">{{illData.item.title}}</div>
       <div class="ill_name">{{illData.user.name}}</div>

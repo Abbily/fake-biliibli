@@ -1,52 +1,52 @@
 <template>
   <transition name="slide">
     <div class="drawer-Deatil">
-    <div class="b_header">
-      <div class="space">
-        <img src="@/assets/images/left.png" @click="back"/>
+      <div class="b_header">
+        <div class="space">
+          <img src="@/assets/images/left.png" @click="back"/>
+        </div>
+        <div>作品详情</div>
+        <div class="space"></div>
       </div>
-      <div>作品详情</div>
-      <div class="space"></div>
-    </div>
-    <div class="drawer_container">
-      <div class="drawer_bg">
-        <img :src="data.user.face"/>
-      </div>
-      <div class="drawer_circle">
-        <img :src="data.user.face"/>
-      </div>
-      <div class="userInfo">
-        <span class="uName">{{data.user.name}}</span>
-        <span class="grp">
-          <span class="level">UL{{data.user.user_level}}</span>
-          <span class="level">UP{{data.user.next_master_level
-}}</span>
-        </span>
-        <span class="grp_feed">
-          <span class="feed right">关注:</span>
-          <span class="feed left">粉丝:{{data.feed.fans_count
-}}</span>
-        </span>
-        <div class="focus_btn">关注</div>
-      </div>
-    </div>
-    <div class="battle-name">
-      <cTitle>直播间: 战斗之夜</cTitle>
-      <div class="room">
-        <a :href="data.room.room_link">
-          <div class="img_container"><img :src="data.room.cover"></div>
-        </a>
-      </div>
-    </div>
-    <div class="picture">
-      <cTitle>相簿</cTitle>
-      <div class="illustration">
-        <div class="pic_container" v-for="item in pic">
-<!--          <img :src="item.pictures[0].img_src"/>-->
-          <img src="https://i0.hdslb.com/bfs/album/a17904846909109ccd9d9a3d8c40ae831b0e41af.jpg"/>
+      <div class="drawer_container">
+        <div class="drawer_bg">
+          <img :src="data.user.face"/>
+        </div>
+        <div class="drawer_circle">
+          <img :src="data.user.face"/>
+        </div>
+        <div class="userInfo">
+          <span class="uName">{{data.user.name}}</span>
+          <span class="grp">
+            <span class="level">UL{{data.user.user_level}}</span>
+            <span class="level">UP{{data.user.next_master_level
+  }}</span>
+          </span>
+          <span class="grp_feed">
+            <span class="feed right">关注:</span>
+            <span class="feed left">粉丝:{{data.feed.fans_count
+  }}</span>
+          </span>
+          <div class="focus_btn">关注</div>
         </div>
       </div>
-    </div>
+      <div class="battle-name">
+        <cTitle>直播间: 战斗之夜</cTitle>
+        <div class="room">
+          <a :href="data.room.room_link">
+            <div class="img_container"><img :src="data.room.cover"></div>
+          </a>
+        </div>
+      </div>
+      <div class="picture">
+        <cTitle>相簿</cTitle>
+        <div class="illustration">
+          <div class="pic_container" v-for="item in pic">
+  <!--          <img :src="item.pictures[0].img_src"/>-->
+            <img src="https://i0.hdslb.com/bfs/album/a17904846909109ccd9d9a3d8c40ae831b0e41af.jpg"/>
+          </div>
+        </div>
+      </div>
   </div>
   </transition>
 </template>
@@ -83,6 +83,7 @@ export default {
   background: #444;
   z-index: 24;
   width: 100%;
+  top:-2.166666rem;
   overflow: hidden;
   .b_header{
     position: relative;

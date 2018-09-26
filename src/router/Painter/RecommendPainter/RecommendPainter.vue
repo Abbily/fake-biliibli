@@ -16,11 +16,7 @@
   </div>
 </template>
 <script>
-import drawer from "./drawer.vue"
 export default {
-  components: {
-    drawer
-  },
   data(){
     return {
       data: '',

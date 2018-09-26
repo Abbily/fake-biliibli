@@ -2,13 +2,11 @@
   <div class="paint-footer">
     <slide/>
     <painter/>
-    <div class="groom">
-      <cTitle v-if="data">推荐作品</cTitle>
-      <div class="illData">
-        <works v-for="i in data" :illData="i" :key="i.item.doc_id" v-if="data"/>
-      </div>
+    <cTitle v-if="data">推荐作品</cTitle>
+    <div class="illData">
+      <works v-for="i in data" :illData="i" :key="i.item.doc_id" v-if="data"/>
     </div>
-    <router-view></router-view>
+    <router-view/>
   </div>
 </template>
 <script>
@@ -37,7 +35,7 @@ export default {
 <style lang="stylus">
 .paint-footer{
   width: 100%;
-  position: relative;
+  position: absolute;
   top: 2.166666rem;
   .illData{
     padding: 10px;
