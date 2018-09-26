@@ -1,8 +1,8 @@
 <template>
   <div class="worker-name">
-    <p class="workers">推荐作品</p>
+    <cTitle>推荐作品</cTitle>
     <div class="ill_panel">
-      <div class="card" v-for="item in data" @click="jumpDetail(item)">
+      <div class="card" v-for="item in data" :key="item.item.doc_id" @click="jumpDetail(item)">
         <div class="img_container">
 <!--          <img src="item.item.pictures[0].img_src"/>-->
         </div>
@@ -16,14 +16,22 @@
 <!--        <div class="ill_header" :style="{'backgroundImage':'url('+item.user.head_url+')'}"></div>-->
       </div>
     </div>
+    <transition name="fade">
+      <works v-if="show"/>
+    </transition>
   </div>
 </template>
 <script>
+import works from './works.vue';
 export default{
+  components: {
+    works,
+  },
   data(){
     return {
       i: 1,
       data: '',
+      show: false,
     }
   },
   created(){
@@ -33,7 +41,11 @@ export default{
   },
   methods: {
     jumpDetail(data){
-      console.log(data);
+      this.$router.push({
+        name: '/detail',
+        params: {docId:data.item.doc_id,uId:data.user.uid}
+      });
+      this.show = !this.show;
     }
   }
 }
@@ -44,10 +56,12 @@ export default{
   position: absolute;
   top: 9.5rem;
   padding-bottom: 0.266666rem;
-  .workers{
-    background: #fb6b55;
-    padding: 0.133333rem 0 0.133333rem 0.133333rem;
-    border-left: 0.133333rem solid #c0c46d;
+  .fade-enter-active, .fade-leave-active {
+    transition: all 0.3s;
+    transform: translate3d(0, 0, 0);
+  }
+  .fade-enter, .fade-leave-active {
+    transform: translate3d(375px, 0, 0);
   }
   .ill_panel{
     padding: 10px;

@@ -4,6 +4,7 @@ import App from './App.vue'
 Vue.config.productionTip = false
 import '@/assets/css/style.css';
 import router from '@/router.js';
+import '@/components/core/registerComponent';
 import axios from '@/components/core/axios.js';
 Vue.prototype.$axios = axios;
 

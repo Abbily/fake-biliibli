@@ -6,6 +6,7 @@ const paint = () => import('@/router/Painter/paint.vue');
 const rank = () => import('@/router/rank/rank.vue');
 const activity = () => import('@/router/activity/activity.vue');
 const drawer = () => import('@/router/Painter/RecommendPainter/drawer.vue');
+const detail = () => import('@/router/Painter/Recommendworks/works.vue');
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
         path: 'drawer/:id',
         name: '/drawer',
         component: drawer,
+      },
+      {
+        path: 'detail/:docId/:uId',
+        name: '/detail',
+        component: detail,
       }
     ]
   },

@@ -11,7 +11,11 @@
 export default {
   data(){
     return {
-      List:[{label:'画友',id:1,path:'/paint'},{label:'排行榜',id:2,path:'/rank'},{label:'活动中心',id:3,path:'/activity'}],
+      List:[
+        {label:'画友',id:1,path:'/paint'},
+        {label:'排行榜',id:2,path:'/rank'},
+        {label:'活动中心',id:3,path:'/activity'}
+      ],
       id:1
     }
   },

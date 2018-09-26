@@ -1,5 +1,6 @@
 <template>
-  <div class="drawer-Deatil">
+  <transition name="slide">
+    <div class="drawer-Deatil">
     <div class="b_header">
       <div class="space">
         <img src="@/assets/images/left.png" @click="back"/>
@@ -30,7 +31,7 @@
       </div>
     </div>
     <div class="battle-name">
-      <p class="battle-room">直播间: 战斗之夜</p>
+      <cTitle>直播间: 战斗之夜</cTitle>
       <div class="room">
         <a :href="data.room.room_link">
           <div class="img_container"><img :src="data.room.cover"></div>
@@ -38,7 +39,7 @@
       </div>
     </div>
     <div class="picture">
-      <p class="picture-room">相簿</p>
+      <cTitle>相簿</cTitle>
       <div class="illustration">
         <div class="pic_container" v-for="item in pic">
 <!--          <img :src="item.pictures[0].img_src"/>-->
@@ -47,6 +48,7 @@
       </div>
     </div>
   </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -66,22 +68,22 @@ export default {
   },
   methods: {
     back(){
-      this.$router.push('/paint');
-      this.$emit('back',true);
+      this.$router.go('-1');
     }
   }
 }
 </script>
 <style lang="stylus">
+.slide-enter-active, .slide-leave-active
+  transition: all 0.3s
+.slide-enter, .slide-leave-to
+  transform: translate3d(100%, 0, 0)
 .drawer-Deatil{
   position: absolute;
   background: #444;
-  top: -4.66rem;
   z-index: 24;
   width: 100%;
-  height: 1000px;
   overflow: hidden;
-  height: 1000px;
   .b_header{
     position: relative;
     width: 100%;
@@ -193,11 +195,6 @@ export default {
     }
   }
   .battle-name{
-    .battle-room{
-      background: #fb6b55;
-      padding: 0.133333rem 0 0.133333rem 0.133333rem;
-      border-left: 0.133333rem solid #c0c46d;
-    }
     .room{
       width: 5.28rem;
       height: 3.306666rem;
@@ -216,11 +213,6 @@ export default {
     }
   }
   .picture{
-    .picture-room{
-      background: #fb6b55;
-      padding: 0.133333rem 0 0.133333rem 0.133333rem;
-      border-left: 0.133333rem solid #c0c46d;
-    }
     .illustration{
       width: 375px;
       pointer-events: auto;

@@ -1,19 +1,23 @@
 <template>
   <div class="painter-name">
-    <p class="painter-author">推荐画师</p>
+    <cTitle>推荐画师</cTitle>
     <div class="author">
-      <div v-for="item in data" class="painter">
+      <div v-for="item in data" class="painter" :key="item.uid">
         <a class="jumpUrl">
           <div class="imgBox">
-            <img :src="item.head_url" @click="jumpDetail(item.uid)">
+            <router-link :to="`/paint/drawer/${item.uid}`">
+              <img :src="item.head_url">
+            </router-link>
           </div>
           <div style="font-size:0.28rem;">{{item.name}}</div>
         </a>
       </div>
     </div>
+<!--
     <transition name="fade">
       <drawer v-if="show" @back="back"/>
     </transition>
+-->
   </div>
 </template>
 <script>
@@ -28,15 +32,6 @@ export default {
       show: false,
     }
   },
-  methods: {
-    jumpDetail(id){
-      this.show = !this.show;
-      this.$router.push({name: "/drawer",params:{id:id}});
-    },
-    back(){
-      this.show = !this.show;
-    }
-  },
   created(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawer').then(res=>{
       this.data = res.data.data;
@@ -49,18 +44,6 @@ export default {
   width: 100%;
   position: absolute;
   top: 4.6rem;
-  .fade-enter-active, .fade-leave-active {
-    transition: all 0.3s;
-    transform: translate3d(0, 0, 0);
-  }
-  .fade-enter, .fade-leave-active {
-    transform: translate3d(375px, 0, 0);
-  }
-  .painter-author{
-    background: #fb6b55;
-    padding: 0.133333rem 0 0.133333rem 0.133333rem;
-    border-left: 0.133333rem solid #c0c46d;
-  }
   .author{
     display: flex;
     flex-flow: row wrap;

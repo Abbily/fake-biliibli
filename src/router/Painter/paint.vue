@@ -1,28 +1,23 @@
 <template>
-  <div class="detail_container" v-if="show">
+  <div class="detail_container">
     <slide/>
-    <RecommendPainter @hid="hid"/>
-    <Recommendworks/>
+    <painter/>
+    <works/>
+    <router-view></router-view>
   </div>
 </template>
 <script>
 import slide from './Slide/slide.vue';
-import RecommendPainter from './RecommendPainter/RecommendPainter.vue';
-import Recommendworks from './Recommendworks/Recommendworks.vue';
+import painter from './RecommendPainter/RecommendPainter.vue';
+import works from './Recommendworks/Recommendworks.vue';
 export default {
   components:{
     slide,
-    RecommendPainter,
-    Recommendworks
+    painter,
+    works
   },
   data(){
     return {
-      show: true
-    }
-  },
-  methods: {
-    hid(){
-      this.show = !this.show;
     }
   }
 }
