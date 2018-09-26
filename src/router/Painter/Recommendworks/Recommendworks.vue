@@ -3,30 +3,16 @@
     <cTitle>推荐作品</cTitle>
     <div class="ill_panel">
       <div class="card" v-for="item in data" :key="item.item.doc_id" @click="jumpDetail(item)">
-        <div class="img_container">
-<!--          <img src="item.item.pictures[0].img_src"/>-->
-        </div>
         <div class="ill_title">{{item.item.title}}</div>
         <div class="img_container">
-          <div class="img_box">
-<!--            <img :src="item.user.head_url"/>-->
-          </div>
           <div class="ill_name">{{item.user.name}}</div>
         </div>
-<!--        <div class="ill_header" :style="{'backgroundImage':'url('+item.user.head_url+')'}"></div>-->
       </div>
     </div>
-    <transition name="fade">
-      <works v-if="show"/>
-    </transition>
   </div>
 </template>
 <script>
-import works from './works.vue';
 export default{
-  components: {
-    works,
-  },
   data(){
     return {
       i: 1,
