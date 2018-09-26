@@ -54,10 +54,9 @@
 <style lang="stylus">
 
   .full-page-slide-wrapper
-    position: absolute
+    position: relative
     z-index: 20
     left: 0
-    top: 2.2rem;
     width: 100%
     height: 2.2rem
     overflow: hidden

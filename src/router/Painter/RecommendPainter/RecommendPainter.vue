@@ -13,11 +13,6 @@
         </a>
       </div>
     </div>
-<!--
-    <transition name="fade">
-      <drawer v-if="show" @back="back"/>
-    </transition>
--->
   </div>
 </template>
 <script>
@@ -42,12 +37,13 @@ export default {
 <style lang="stylus">
 .painter-name{
   width: 100%;
-  position: absolute;
-  top: 4.6rem;
+  position: relative;
+  top: 0.1rem;
   .author{
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    padding-bottom: 0.3rem;
     .painter{
       width: 33.3%;
       .jumpUrl{
