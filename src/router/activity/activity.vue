@@ -1,6 +1,6 @@
 <template>
   <div class="activity-name">
-    <div class="actcard" v-for="item in data" @click="jumpBili(item)">
+    <div class="actcard" v-for="item in data" @click="jumpBili(item)" :key="item.title">
       <div class="img_container">
         <img :src="item.cover"/>
         <div class="fin">{{item.desc}}</div>
