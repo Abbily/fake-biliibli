@@ -42,8 +42,7 @@
         <cTitle>相簿</cTitle>
         <div class="illustration">
           <div class="pic_container" v-for="item in pic">
-  <!--          <img :src="item.pictures[0].img_src"/>-->
-            <img src="https://i0.hdslb.com/bfs/album/a17904846909109ccd9d9a3d8c40ae831b0e41af.jpg"/>
+            <img :src="item.pictures[0].img_src"/>
           </div>
         </div>
       </div>
@@ -218,6 +217,7 @@ export default {
       width: 375px;
       pointer-events: auto;
       .pic_container{
+        height: 2.5rem;
         float: left;
         border-radius: .133333rem;
         overflow: hidden;
