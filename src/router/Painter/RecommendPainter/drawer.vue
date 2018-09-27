@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <div class="drawer-Deatil">
+    <div class="drawer-Deatil" v-if="data && pic">
       <div class="b_header">
         <div class="space">
           <img src="@/assets/images/left.png" @click="back"/>

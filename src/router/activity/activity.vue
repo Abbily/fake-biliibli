@@ -1,6 +1,6 @@
 <template>
   <div class="activity-name">
-    <div class="actcard" v-for="item in data">
+    <div class="actcard" v-for="item in data" @click="jumpBili(item)">
       <div class="img_container">
         <img :src="item.cover"/>
         <div class="fin">{{item.desc}}</div>
@@ -32,6 +32,11 @@ export default {
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/center').then((res)=>{
       this.data = res.data.data.items;
     })
+  },
+  methods: {
+    jumpBili(url){
+      window.location.href=url.link;
+    }
   }
 }
 </script>
