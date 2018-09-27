@@ -2,12 +2,13 @@
   <div class="Rank-list" ref="RankList">
     <div class="rank">
       <div class="card" v-for='item in data' :key="item.item.doc_id" @click="jumpDeatil(item)">
-        <div class="img_container">
-          <img :src="item.item.pictures[0].img_src"/>
+        <div class="img_container" :style="{backgroundImage:'url('+item.item.pictures[0].img_src+')'}">
         </div>
         <p class="ill_name">{{item.item.title}}</p>
         <div class="drawer_box">
-          <div class="img_box"><img :src="item.user.head_url"/></div>
+          <div class="img_box">
+            <img :src="item.user.head_url"/>
+          </div>
           <div>{{item.user.name}}</div>
         </div>
       </div>
@@ -77,9 +78,8 @@ export default {
         height: 6.2rem;
         border-radius: .133333rem .133333rem 0 0;
         overflow: hidden;
-        img{
-          width: 100%;
-        }
+        background-size: cover!important;
+        overflow: hidden;
       }
       .drawer_box{
         width: 50%;

@@ -2,8 +2,6 @@
   <div id="card" @click="jumpDetail(illData)" v-if="illData">
     <div class="ill_panel">
       <div class="img_container" :style="{backgroundImage:'url('+illData.item.pictures[0].img_src+')'}">
-<!--        <div class="ill_header" ></div>-->
-<!--        <img :src="illData.item.pictures[0].img_src"/>-->
       </div>
       <div class="ill_title">{{illData.item.title}}</div>
       <div class="drawer_intro">
