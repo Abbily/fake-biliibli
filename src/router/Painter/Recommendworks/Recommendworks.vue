@@ -1,8 +1,9 @@
 <template>
   <div id="card" @click="jumpDetail(illData)" v-if="illData">
     <div class="ill_panel">
-      <div class="img_container">
-        <img :src="illData.item.pictures[0].img_src"/>
+      <div class="img_container" :style="{backgroundImage:'url('+illData.item.pictures[0].img_src+')'}">
+<!--        <div class="ill_header" ></div>-->
+<!--        <img :src="illData.item.pictures[0].img_src"/>-->
       </div>
       <div class="ill_title">{{illData.item.title}}</div>
       <div class="drawer_intro">
@@ -53,10 +54,8 @@ export default{
       width: 100%;
       height: 8rem;
       border-radius: .133333rem .133333rem 0 0;
+      background-size: cover!important;
       overflow: hidden;
-      img{
-        width: 100%;
-      }
     }
     .ill_title{
       padding: .133333rem 0 .133333rem .133333rem;

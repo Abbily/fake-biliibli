@@ -41,7 +41,7 @@
       <div class="picture">
         <cTitle>相簿</cTitle>
         <div class="illustration">
-          <div class="pic_container" v-for="item in pic">
+          <div class="pic_container" v-for="item in pic" :key="item.doc_id">
             <img :src="item.pictures[0].img_src"/>
           </div>
         </div>

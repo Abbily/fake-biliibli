@@ -119,12 +119,11 @@ export default {
 
 .work-detail{
   position: absolute;
-  background: #222;
+  background: #444;
   z-index: 24;
   width: 100%;
   top:-2.166666rem;
   overflow: hidden;
-  height: 1000px;
   .b_header{
     position: relative;
     width: 100%;
