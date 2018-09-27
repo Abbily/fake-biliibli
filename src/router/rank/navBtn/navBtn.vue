@@ -29,6 +29,7 @@ export default {
   box-sizing: border-box;
   z-index: 22;
   background: #333;
+  top: 2.1rem;
   .navBtn{
     display: flex;
     width: 4rem;

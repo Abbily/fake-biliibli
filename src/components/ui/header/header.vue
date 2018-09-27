@@ -6,14 +6,22 @@
     </div>
     <div class="space">
       <div>
-        <img src="@/assets/images/search.png">
+        <img src="@/assets/images/search.png" @click="jumpSearch">
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
+export default {
+  methods: {
+    jumpSearch(){
+      this.$router.push({
+        name: 'search'
+      })
+    }
+  }
+}
 </script>
 
 <style lang="stylus">

@@ -1,7 +1,7 @@
 <template>
   <div class="Rank-list" ref="RankList">
     <div class="rank">
-      <div class="card" v-for='item in data'>
+      <div class="card" v-for='item in data' :key="item.item.doc_id" @click="jumpDeatil(item)">
         <div class="img_container">
           <img :src="item.item.pictures[0].img_src"/>
         </div>
@@ -42,6 +42,12 @@ export default {
       } else if(id===3){
         this.data = this.day;
       }
+    },
+    jumpDeatil(data){
+      this.$router.push({
+        name: '/detail',
+        params: {docId:data.item.doc_id,uId:data.user.uid}
+      });
     }
   }
 }

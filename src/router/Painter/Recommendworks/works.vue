@@ -97,7 +97,6 @@ export default {
     })
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.docId).then(res=>{
       this.comments = res.data.data
-      console.log(this.comments)
     })
   },
   filters: {

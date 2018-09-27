@@ -3,9 +3,9 @@
     <v-header></v-header>
     <v-nav></v-nav>
     <keep-alive>
-      <router-view v-if="!$route.meta.dontKeepAlive"></router-view>
+      <router-view v-if="!$route.meta.dontKeepAlive"/>
     </keep-alive>
-    <router-view v-if="$route.meta.dontKeepAlive"></router-view>
+    <router-view v-if="$route.meta.dontKeepAlive"/>
   </div>
 </template>
 

@@ -7,6 +7,7 @@ const rank = () => import('@/router/rank/rank.vue');
 const activity = () => import('@/router/activity/activity.vue');
 const drawer = () => import('@/router/Painter/RecommendPainter/drawer.vue');
 const detail = () => import('@/router/Painter/Recommendworks/works.vue');
+const search = () => import('@/router/search/search.vue');
 
 const routes = [
   {
@@ -27,6 +28,7 @@ const routes = [
         path: 'detail/:docId/:uId',
         name: '/detail',
         component: detail,
+        meta: {dontKeepAlive: true}
       }
     ]
   },
@@ -39,6 +41,11 @@ const routes = [
     path: '/activity',
     name: 'activity',
     component: activity
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: search
   }
 ]
 
