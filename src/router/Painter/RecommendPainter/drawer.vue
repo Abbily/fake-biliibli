@@ -8,6 +8,19 @@
         <div>作品详情</div>
         <div class="space"></div>
       </div>
+      <div ref="d_fix" v-if="show" class="drawer_container_fixed">
+        <div class="drawer_circle">
+          <img :src="data.user.face" alt="">
+        </div>
+        <div class="userinfo">
+          <span class="uname">{{data.user.name}}</span>
+          <span class="grp">
+            <span class="level">UL {{data.user.user_level}}</span>
+            <span class="level">UP {{data.user.master_level}}</span>
+          </span>
+        </div>
+        <div class="focus_btn">关注</div>
+      </div>
       <div class="drawer_container">
         <div class="drawer_bg">
           <img :src="data.user.face"/>
@@ -54,7 +67,9 @@ export default {
   data(){
     return {
       data:'',
-      pic: ''
+      pic: '',
+      show: true,
+      scrollTop: '',
     }
   },
   created(){
@@ -64,10 +79,20 @@ export default {
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawerillustration?uid='+this.$route.params.id).then(res=>{
       this.pic = res.data.data.items;
     })
+    window.addEventListener('scroll', this.getScrollTop);
   },
   methods: {
     back(){
-      this.$router.go('-1');
+      this.$router.go(-1);
+    },
+    getScrollTop(){
+      this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      let fix = this.$refs.d_fix;
+      if(this.scrollTop>168 && fix){
+        fix.style.opacity = 1;
+      }else if(this.scrollTop<168 && fix){
+        fix.style.opacity = 0;
+      }
     }
   }
 }
@@ -85,13 +110,14 @@ export default {
   top:-2.166666rem;
   overflow: hidden;
   .b_header{
-    position: relative;
+    position: fixed;
     width: 100%;
     background: #444;
     height: 1.066666rem;
     box-shadow: 0 0.053333rem 0.053333rem #222;
     display: flex;
     align-items: center;
+    z-index: 25;
     .space{
       flex: 1;
       img{
@@ -100,9 +126,70 @@ export default {
       }
     }
   }
+  .drawer_container_fixed{
+    position: fixed;
+    top: 1.066666rem;
+    left: 0;
+    height: 1.8rem;
+    width: 100%;
+    background: #333;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all .3s ease;
+    opacity: 0;
+    z-index: 101;
+    .drawer_circle{
+      width: 1.066666rem;
+      height: 1.066666rem;
+      border-radius: 50%;
+      border: .053333rem solid #fc6;
+      overflow: hidden;
+      margin: 0 auto;
+      img{
+        width: 100%;
+      }
+    }
+    .userinfo{
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      .uname{
+        margin-top: .266666rem;
+      }
+      .grp{
+        margin-top: .266666rem;
+        .level{
+          margin: 0 .266666rem;
+          border-radius: .053333rem;
+          font-size: .16rem;
+          border: 1px solid #a068f1;
+          color: #a068f1;
+          font-weight: 700;
+          padding: .053333rem .08rem;
+        }
+      }
+    }
+    .focus_btn{
+      box-sizing: border-box;
+      margin: 0 auto;
+      width: 2rem;
+      height: .853333rem;
+      line-height: .853333rem;
+      text-align: center;
+      font-size: .373333;
+      color: #fff;
+      background-color: #23ade6;
+      border-radius: .106666rem;
+      cursor: pointer;
+    }
+  }
   .drawer_container{
-    position: relative;
     height: 6.3rem;
+    padding-top: 1.066666rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;

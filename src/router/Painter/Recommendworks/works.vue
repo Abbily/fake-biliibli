@@ -1,5 +1,5 @@
 <template>
-  <transition name="slide">
+  <transition name="fade">
     <div class="work-detail">
       <div class="b_header">
         <div class="space">
@@ -10,9 +10,8 @@
       </div>
       <div class="illustration" v-if="user && detail && comments">
         <div class="drawer">
-<!--          <img :src="detail.user.head_url"/>-->
           <div class="img_container">
-            <img src="~@/assets/images/girl.jpg"/>
+            <img :src="user.user.face"/>
           </div>
           <div class="drawer_name">{{user.user.name}}</div>
           <div class="drawer_level">UP{{user.user.master_level}}</div>
@@ -47,8 +46,7 @@
             <div class="comments">
               <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments">
                 <div class="img_container">
-<!--                  <img :src="item.member.avatar"/>-->
-                  <img src="~@/assets/images/girl.jpg"/>
+                  <img :src="item.member.avatar"/>
                 </div>
                 <div class="content">
                   <div class="user_box">
@@ -57,7 +55,7 @@
                   </div>
                   <div class="comment">{{item.content.message}}</div>
                   <div class="replies">
-                    <div class="comment_box" v-for="item in comments.replies.replies" :key="item.rpid" v-if="comments.hots">
+                    <div class="comment_box" v-for="item in item.replies" :key="item.rpid" v-if="comments.hots">
                       <div class="img_container">
                         <img :src="item.member.avatar"/>
                       </div>
@@ -71,6 +69,7 @@
                     </div>
                   </div>
                 </div>
+                <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
             </div>
           </div>
@@ -86,6 +85,7 @@ export default {
       detail: '',
       comments: '',
       user: '',
+      replies: '',
     }
   },
   created(){
@@ -96,13 +96,8 @@ export default {
       this.detail = res.data.data
     })
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.docId).then(res=>{
-      this.comments = res.data.data
+      this.comments = res.data.data;
     })
-  },
-  filters: {
-    hots(val){
-      return val?val:'暂无热门评论'
-    }
   },
   methods: {
     back(){
@@ -112,20 +107,21 @@ export default {
 }
 </script>
 <style lang="stylus">
-.slide-enter-active, .slide-leave-active
-  transition: all 0.3s
-.slide-enter, .slide-leave-to
+.fade-enter-active, .fade-leave-active
+  transition: all 0.2s
+.fade-enter, .fade-leave-to
   transform: translate3d(100%, 0, 0)
 
 .work-detail{
   position: absolute;
-  background: #444;
+  background: #222;
   z-index: 24;
   width: 100%;
   top:-2.166666rem;
   overflow: hidden;
   .b_header{
-    position: relative;
+    position: fixed;
+    z-index: 25;
     width: 100%;
     background: #444;
     height: 1.066666rem;
@@ -143,6 +139,8 @@ export default {
   .illustration{
     padding: .133333rem;
     box-sizing: border-box;
+    position: relative;
+    top: 1.066666rem;
     .drawer{
       display: flex;
       align-items: center;
@@ -219,7 +217,7 @@ export default {
           display: flex;
           justify-content: flex-start;
           align-items: flex-start;
-          margin: .266666rem 0;
+          margin: .166666rem 0;
           word-wrap: break-word;
           .img_container{
             min-width: 1rem;
