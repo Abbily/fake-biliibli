@@ -1,13 +1,7 @@
 <template>
   <transition name="slide">
     <div class="drawer-Deatil" v-if="data && pic">
-      <div class="b_header">
-        <div class="space">
-          <img src="@/assets/images/left.png" @click="back"/>
-        </div>
-        <div>作品详情</div>
-        <div class="space"></div>
-      </div>
+      <cHeader :title="title" :needBack="true"></cHeader>
       <div ref="d_fix" v-if="show" class="drawer_container_fixed">
         <div class="drawer_circle">
           <img :src="data.user.face" alt="">
@@ -70,6 +64,7 @@ export default {
       pic: '',
       show: true,
       scrollTop: '',
+      title: '作品详情'
     }
   },
   created(){
@@ -109,23 +104,6 @@ export default {
   width: 100%;
   top:-2.166666rem;
   overflow: hidden;
-  .b_header{
-    position: fixed;
-    width: 100%;
-    background: #444;
-    height: 1.066666rem;
-    box-shadow: 0 0.053333rem 0.053333rem #222;
-    display: flex;
-    align-items: center;
-    z-index: 25;
-    .space{
-      flex: 1;
-      img{
-        padding-left: 10px;
-        width: 25px;
-      }
-    }
-  }
   .drawer_container_fixed{
     position: fixed;
     top: 1.066666rem;
@@ -165,7 +143,7 @@ export default {
         .level{
           margin: 0 .266666rem;
           border-radius: .053333rem;
-          font-size: .16rem;
+          font-size: .24rem;
           border: 1px solid #a068f1;
           color: #a068f1;
           font-weight: 700;
@@ -240,7 +218,7 @@ export default {
           display: inline-block;
           margin: 0 .266666rem;
           border-radius: .053333rem;
-          font-size: .16rem;
+          font-size: .24rem;
           border: 1px solid #a068f1;
           color: #a068f1;
           font-weight: 700;

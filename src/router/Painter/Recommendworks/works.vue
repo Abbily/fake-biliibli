@@ -1,13 +1,7 @@
 <template>
   <transition name="fade">
     <div class="work-detail" v-if="user && detail && comments">
-      <div class="b_header">
-        <div class="space">
-          <img src="@/assets/images/left.png" @click="back"/>
-        </div>
-        <div>作品详情</div>
-        <div class="space"></div>
-      </div>
+      <cHeader :title="title" :needBack="true"></cHeader>
       <div class="illustration" v-if="user && detail && comments">
         <div class="drawer">
           <div class="img_container">
@@ -86,6 +80,7 @@ export default {
       comments: '',
       user: '',
       replies: '',
+      title: '作品详情'
     }
   },
   created(){
@@ -119,23 +114,6 @@ export default {
   width: 100%;
   top:-2.166666rem;
   overflow: hidden;
-  .b_header{
-    position: fixed;
-    z-index: 25;
-    width: 100%;
-    background: #444;
-    height: 1.066666rem;
-    box-shadow: 0 0.053333rem 0.053333rem #222;
-    display: flex;
-    align-items: center;
-    .space{
-      flex: 1;
-      img{
-        padding-left: 10px;
-        width: 25px;
-      }
-    }
-  }
   .illustration{
     padding: .133333rem;
     box-sizing: border-box;

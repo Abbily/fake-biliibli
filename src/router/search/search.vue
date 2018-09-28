@@ -1,13 +1,7 @@
 <template>
   <transition name="slide">
     <div id="search">
-      <div class="b_header">
-        <div class="space">
-          <img src="@/assets/images/left.png" @click="back"/>
-        </div>
-        <div>搜索</div>
-        <div class="space"></div>
-      </div>
+      <cHeader :title="title" :needBack="true"></cHeader>
       <div class="search-input">
         <img src="@/assets/images/glass.png"/>
         <div class="input-container">
@@ -20,6 +14,11 @@
 </template>
 <script>
 export default {
+  data(){
+    return {
+      title: '搜索'
+    }
+  },
   methods: {
     back(){
       this.$router.go(-1);
@@ -39,29 +38,13 @@ export default {
   right: 0;
   bottom: 0;
   background: #222;
-  z-index: 24;
+  z-index: 25;
   width: 100%;
   overflow: hidden;
-  .b_header{
-    position: relative;
-    width: 100%;
-    background: #444;
-    height: 1.066666rem;
-    box-shadow: 0 0.053333rem 0.053333rem #222;
-    display: flex;
-    align-items: center;
-    .space{
-      flex: 1;
-      img{
-        padding-left: 10px;
-        width: 25px;
-      }
-    }
-  }
   .search-input{
     margin: 0 .266667rem;
     box-sizing: border-box;
-    margin-top: .4rem;
+    margin-top: 1.4rem;
     margin-bottom: .4rem;
     background: #666;
     height: .6rem;

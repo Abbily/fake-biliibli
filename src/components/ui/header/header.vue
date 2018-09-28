@@ -1,12 +1,12 @@
 <template>
   <div class="header-name">
-    <div class="space"></div>
-    <div>
-      <p class="headTitle">假bilibili分站--(゜-゜)つロ 干杯~</p>
+    <div class="space">
+      <img class="back" src="@/assets/images/left.png" @click="back" v-if="needBack"/>
     </div>
+    <p class="headTitle">{{title}}</p>
     <div class="space">
       <div>
-        <img src="@/assets/images/search.png" @click="jumpSearch">
+        <img class="search" src="@/assets/images/search.png" @click="jumpSearch" v-if='show'>
       </div>
     </div>
   </div>
@@ -14,11 +14,29 @@
 
 <script>
 export default {
+  props: {
+    title: {
+      default: '假bilibili分站--(゜-゜)つロ 干杯~',
+      type: String
+    },
+    needBack: {
+      default: false,
+      type: Boolean
+    }
+  },
+  computed: {
+    show(){
+      return this.$route.path === "/paint" || this.$route.path === "/rank" || this.$route.path === "/activity";
+    }
+  },
   methods: {
     jumpSearch(){
       this.$router.push({
         name: 'search'
       })
+    },
+    back(){
+      this.$router.go(-1);
     }
   }
 }
@@ -28,7 +46,7 @@ export default {
 .header-name{
   position: fixed;
   top: 0;
-  z-index: 23;
+  z-index: 24;
   width:100%;
   height: 1.066666rem;
   background: #444;
@@ -37,12 +55,19 @@ export default {
   justify-content: center;
   box-shadow: 0 0.053333rem 0.053333rem #222;
   .space{
+    display:flex;
     flex: 1;
-    img{
-      width: 25px;
-      height: 25px;
-      float: right;
-      margin-right: 15px;
+    align-items: center;
+    .back{
+      width: 0.5rem;
+      height: 0.5rem;
+      margin-left: 0.3rem;
+    }
+    .search{
+      width: 0.5rem;
+      height: 0.5rem;
+      margin-left: 0.7rem;
+      margin-top: .1rem;
     }
   }
 }
