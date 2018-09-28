@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="work-detail">
+    <div class="work-detail" v-if="user && detail && comments">
       <div class="b_header">
         <div class="space">
           <img src="@/assets/images/left.png" @click="back"/>
@@ -25,7 +25,7 @@
             </span>
           </div>
           <div id="ILC">
-            <img :src="detail.item.pictures[0].img_src"/>
+            <img v-if="detail.item.pictures" :src="detail.item.pictures[0].img_src"/>
             <cTitle>热门评论</cTitle>
             <div class="noreply">
               <div class="comment_box" v-for="item in comments.hots" :key="item.rpid" v-if="comments.hots">
