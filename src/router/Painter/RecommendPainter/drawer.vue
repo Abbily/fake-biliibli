@@ -26,13 +26,11 @@
           <span class="uName">{{data.user.name}}</span>
           <span class="grp">
             <span class="level">UL{{data.user.user_level}}</span>
-            <span class="level">UP{{data.user.next_master_level
-  }}</span>
+            <span class="level">UP{{data.user.next_master_level}}</span>
           </span>
           <span class="grp_feed">
             <span class="feed right">关注:</span>
-            <span class="feed left">粉丝:{{data.feed.fans_count
-  }}</span>
+            <span class="feed left">粉丝:{{data.feed.fans_count}}</span>
           </span>
           <div class="focus_btn">关注</div>
         </div>
@@ -65,9 +63,16 @@ export default {
       pic: '',
       show: true,
       scrollTop: '',
-      title: '作品详情'
+      title: '作品详情',
+      timer: '',
     }
   },
+//  beforeRouteLeave(to,from,next){
+//    if(to.path === '/paint'){
+//      window.removeEventListener('scroll', this.getScrollTop);
+//    }
+//    next();
+//  },
   created(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
       this.data = res.data.data;
@@ -75,7 +80,9 @@ export default {
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawerillustration?uid='+this.$route.params.id).then(res=>{
       this.pic = res.data.data.items;
     })
-    window.addEventListener('scroll', this.getScrollTop);
+    if(this.$route.name === "drawer"){
+      window.addEventListener('scroll', this.getScrollTop);
+    }
   },
   methods: {
     back(){
@@ -92,11 +99,14 @@ export default {
     getScrollTop(){
       this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
       let fix = this.$refs.d_fix;
-      if(this.scrollTop>168 && fix){
-        fix.style.opacity = 1;
-      }else if(this.scrollTop<168 && fix){
-        fix.style.opacity = 0;
-      }
+      clearTimeout(this.timer);
+      this.timer = setTimeout(()=>{
+        if(this.scrollTop>168 && fix){
+          fix.style.opacity = 1;
+        }else if(this.scrollTop<168 && fix){
+          fix.style.opacity = 0;
+        }
+      },200);
     }
   }
 }
