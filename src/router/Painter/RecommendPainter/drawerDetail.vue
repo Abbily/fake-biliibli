@@ -1,0 +1,214 @@
+<template>
+  <transition name="draw">
+    <div class="drawerDetail" v-if="user && detail && comments">
+      <cHeader :title="title" :needBack="true" :search="false"></cHeader>
+      <div class="illustration" v-if="user && detail && comments">
+        <div class="drawer">
+          <div class="img_container">
+            <img :src="user.user.face"/>
+          </div>
+          <div class="drawer_name">{{user.user.name}}</div>
+          <div class="drawer_level">UP{{user.user.master_level}}</div>
+        </div>
+        <div class="main">
+          <div class="title">{{detail.item.title}}</div>
+          <div class="desc">{{detail.item.description}}</div>
+          <div id="ILC">
+            <img v-if="detail.item.pictures" :src="detail.item.pictures[0].img_src"/>
+            <cTitle>热门评论</cTitle>
+            <div class="noreply">
+              <div class="comment_box" v-for="item in comments.hots" :key="item.rpid" v-if="comments.hots">
+                <div class="img_container">
+                  <img :src="item.member.avatar"/>
+                </div>
+                <div class="content">
+                  <div class="user_box">
+                    <div class="uname">{{item.member.uname}}</div>
+                    <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                  </div>
+                  <div class="comment">{{item.content.message}}</div>
+                </div>
+              </div>
+              <div v-if="!comments.hots" class="noreply1">暂无热门评论</div>
+            </div>
+            <cTitle>评论</cTitle>
+            <div class="comments">
+              <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments">
+                <div class="img_container">
+                  <img :src="item.member.avatar"/>
+                </div>
+                <div class="content">
+                  <div class="user_box">
+                    <div class="uname">{{item.member.uname}}</div>
+                    <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                  </div>
+                  <div class="comment">{{item.content.message}}</div>
+                  <div class="replies">
+                    <div class="comment_box" v-for="item in item.replies" :key="item.rpid" v-if="comments.hots">
+                      <div class="img_container">
+                        <img :src="item.member.avatar"/>
+                      </div>
+                      <div class="content">
+                        <div class="user_box">
+                          <div class="uname">{{item.member.uname}}</div>
+                          <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                        </div>
+                        <div class="comment">{{item.content.message}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="!comments.replies" class="noreply1">暂无评论</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
+<script>
+export default {
+  data(){
+    return {
+      user: '',
+      detail: '',
+      comments: '',
+      title: '作品详情'
+    }
+  },
+  created(){
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
+      this.user = res.data.data
+    })
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.uid).then(res=>{
+      this.detail = res.data.data
+    })
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.uid).then(res=>{
+      this.comments = res.data.data;
+    })
+  },
+  methods: {
+
+  }
+}
+</script>
+<style lang="stylus">
+.draw-enter-active, .draw-leave-active
+  transition: all 0.3s
+.draw-enter, .v-leave-to
+  transform: translate3d(100%, 0, 0)
+.drawerDetail{
+  position: absolute;
+  background: #444;
+  z-index: 30;
+  width: 100%;
+  top:0;
+  overflow: hidden;
+  .illustration{
+    padding: .133333rem;
+    box-sizing: border-box;
+    position: relative;
+    top: 1.066666rem;
+    .drawer{
+      display: flex;
+      align-items: center;
+      .img_container{
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        border: .053333rem solid #fc6;
+        overflow: hidden;
+        img{
+          width: 100%;
+        }
+      }
+      .drawer_name{
+        margin-left: .2rem;
+      }
+      .drawer_level{
+        margin-left: .133333rem;
+        padding: .04rem;
+        border-radius: .053333rem;
+        font-size: .2rem;
+        border: .026666rem solid #5896de;
+        color: #5896de;
+        font-weight: 700;
+      }
+    }
+    .main{
+      .title{
+        font-weight: 600;
+        padding: .133333rem;
+      }
+      .desc{
+        font-size: .2rem;
+        padding: .1rem;
+        color: #888;
+        line-height: .4rem;
+      }
+      #ILC{
+        width: 100%;
+        overflow:hidden;
+        img{
+          width: 100%;
+          display: inline-block;
+          margin-bottom: .166666rem;
+        }
+      }
+      .noreply1{
+        font-size: .3rem;
+        margin: .133333rem 0;
+        color: #eee;
+        text-align: center;
+      }
+      .noreply,.comments,.replies{
+        font-size: .3rem;
+        margin: .133333rem 0;
+        color: #eee;
+        .comment_box{
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          margin: .166666rem 0;
+          word-wrap: break-word;
+          .img_container{
+            min-width: 1rem;
+            min-height: 1rem;
+            max-width: 1rem;
+            max-height: 1rem;
+            border-radius: 50%;
+            border: .033333rem solid #fc6;
+            overflow: hidden;
+            img{
+              width: 100%;
+            }
+          }
+          .content{
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: flex-start;
+            margin-left: .266666rem;
+            .uname{
+              display: inline-block;
+            }
+            .ulevel{
+              display: inline-block;
+              color: #9c7dd8;
+              margin-left: .133333rem;
+              font-size: .24rem;
+              font-weight: 700;
+            }
+            .comment{
+              font-size: .26rem;
+              color: #ddd;
+              margin-top: .133333rem;
+              line-height: .4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>

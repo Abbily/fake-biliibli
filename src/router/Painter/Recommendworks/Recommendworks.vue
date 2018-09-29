@@ -32,7 +32,7 @@ export default{
   methods: {
     jumpDetail(data){
       this.$router.push({
-        name: '/detail',
+        name: 'detail',
         params: {docId:data.item.doc_id,uId:data.user.uid}
       });
       this.show = !this.show;

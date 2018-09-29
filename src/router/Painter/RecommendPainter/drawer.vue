@@ -49,11 +49,12 @@
         <cTitle>相簿</cTitle>
         <div class="illustration">
           <div class="pic_container" v-for="item in pic" :key="item.doc_id">
-            <img :src="item.pictures[0].img_src"/>
+            <img :src="item.pictures[0].img_src" @click="jumpDetail(item.doc_id)"/>
           </div>
         </div>
       </div>
-  </div>
+      <router-view/>
+    </div>
   </transition>
 </template>
 <script>
@@ -79,6 +80,14 @@ export default {
   methods: {
     back(){
       this.$router.go(-1);
+    },
+    jumpDetail(id){
+      this.$router.push({
+        name: 'drawerDetail',
+        params: {
+          uid: id
+        }
+      })
     },
     getScrollTop(){
       this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -117,7 +126,7 @@ export default {
     justify-content: flex-start;
     transition: all .3s ease;
     opacity: 0;
-    z-index: 101;
+    z-index: 26;
     .drawer_circle{
       width: 1.066666rem;
       height: 1.066666rem;

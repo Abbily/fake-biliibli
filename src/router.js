@@ -6,6 +6,7 @@ const paint = () => import('@/router/Painter/paint.vue');
 const rank = () => import('@/router/rank/rank.vue');
 const activity = () => import('@/router/activity/activity.vue');
 const drawer = () => import('@/router/Painter/RecommendPainter/drawer.vue');
+const drawerDetail = () => import('@/router/Painter/RecommendPainter/drawerDetail.vue');
 const detail = () => import('@/router/Painter/Recommendworks/works.vue');
 const search = () => import('@/router/search/search.vue');
 
@@ -21,12 +22,19 @@ const routes = [
     children: [
       {
         path: 'drawer/:id',
-        name: '/drawer',
+        name: 'drawer',
         component: drawer,
+        children: [
+          {
+            path: 'drawerDetail/:uid',
+            name: 'drawerDetail',
+            component: drawerDetail,
+          }
+        ]
       },
       {
         path: 'detail/:docId/:uId',
-        name: '/detail',
+        name: 'detail',
         component: detail,
         meta: {dontKeepAlive: true}
       }
