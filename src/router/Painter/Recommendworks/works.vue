@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div class="work-detail" v-if="user && detail && comments">
-      <cHeader :title="title" :needBack="true"></cHeader>
+      <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="illustration" v-if="user && detail && comments">
         <div class="drawer">
           <div class="img_container">

@@ -6,7 +6,7 @@
     <p class="headTitle">{{title}}</p>
     <div class="space">
       <div>
-        <img class="search" src="@/assets/images/search.png" @click="jumpSearch" v-if='show'>
+        <img class="search" src="@/assets/images/search.png" @click="jumpSearch" v-if='search'>
       </div>
     </div>
   </div>
@@ -22,11 +22,10 @@ export default {
     needBack: {
       default: false,
       type: Boolean
-    }
-  },
-  computed: {
-    show(){
-      return this.$route.path === "/paint" || this.$route.path === "/rank" || this.$route.path === "/activity";
+    },
+    search: {
+      default: true,
+      type: Boolean
     }
   },
   methods: {

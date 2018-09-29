@@ -1,7 +1,7 @@
 <template>
   <transition name="slide">
     <div class="drawer-Deatil" v-if="data && pic">
-      <cHeader :title="title" :needBack="true"></cHeader>
+      <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div ref="d_fix" v-if="show" class="drawer_container_fixed">
         <div class="drawer_circle">
           <img :src="data.user.face" alt="">
@@ -279,7 +279,8 @@ export default {
   }
   .picture{
     .illustration{
-      width: 375px;
+      position: relative;
+      width: 100%;
       pointer-events: auto;
       .pic_container{
         height: 2.5rem;

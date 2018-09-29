@@ -231,19 +231,19 @@
       position: absolute
       right: 0
       left: 0
-      bottom: 2px
+      bottom: .05rem;
       transform: translateZ(1px)
       text-align: center
       font-size: 0
       .dot
         display: inline-block
         margin: 0 4px
-        width: 8px
-        height: 8px
+        width: 0.15rem
+        height: 0.15rem
         border-radius: 50%
         background: white
         &.active
-          width: 20px
-          border-radius: 5px
+          width: 0.3rem
+          border-radius: .15rem
           background: white
 </style>
