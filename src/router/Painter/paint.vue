@@ -41,7 +41,6 @@ export default {
     },
     getScrollTop(){
       this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
-      console.log(this.$refs.illData.style);
       clearTimeout(this.timer);
       this.timer = setTimeout(()=>{
         if(this.scrollTop>9380 * this.page){

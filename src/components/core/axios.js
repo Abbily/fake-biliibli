@@ -9,7 +9,6 @@ axios.defaults.timeout = 10000;
 
 
 axios.interceptors.request.use((config) => {
-    //console.log(config,123);
     return config;
   },err => {
       return Promise.reject(err);
