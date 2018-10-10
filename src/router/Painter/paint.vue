@@ -35,8 +35,8 @@ export default {
   },
   methods: {
     getData(page=1){
-      this.$axios.get('https://api.rozwel.club/api/bilibili/api/recommends?page='+page).then(res=>{
-        this.data?this.data.push(...res.data.data.items):(this.data=res.data.data.items);
+      this.$axios.get('/api/recommends?page='+page).then(res=>{
+        this.data?this.data.push(...res.data.items):(this.data=res.data.items);
       })
     },
     getScrollTop(){

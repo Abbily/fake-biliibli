@@ -1,6 +1,6 @@
 <template>
   <div class="activity-name">
-    <div class="actcard" v-for="item in data" @click="jumpBili(item)" :key="item.title">
+    <div class="actcard" v-for="item in data" @click="jumpBili(item)" :key="item.title" v-if="data">
       <div class="img_container">
         <img :src="item.cover"/>
         <div class="fin">{{item.desc}}</div>
@@ -10,6 +10,7 @@
         <div class="date">{{item.start_time | time1}}</div>
       </div>
     </div>
+    <loading v-else/>
   </div>
 </template>
 <script>
@@ -29,7 +30,7 @@ export default {
     }
   },
   created(){
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/center').then((res)=>{
+    this.$axios.get('/api/center').then((res)=>{
       this.data = res.data.data.items;
     })
   },

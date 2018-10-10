@@ -84,13 +84,13 @@ export default {
     }
   },
   created(){
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
+    this.$axios.get('/api/user?uid='+this.$route.params.uId).then(res=>{
       this.user = res.data.data
     })
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
+    this.$axios.get('/api/detail?doc_id='+this.$route.params.docId).then(res=>{
       this.detail = res.data.data
     })
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.docId).then(res=>{
+    this.$axios.get('/api/comments?cid='+this.$route.params.docId).then(res=>{
       this.comments = res.data.data;
     })
   },

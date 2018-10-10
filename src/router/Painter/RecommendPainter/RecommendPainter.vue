@@ -1,7 +1,7 @@
 <template>
   <div class="painter-name">
     <cTitle>推荐画师</cTitle>
-    <div class="author">
+    <div class="author" v-if="data">
       <div v-for="item in data" class="painter" :key="item.uid">
         <a class="jumpUrl">
           <div class="imgBox">
@@ -13,6 +13,7 @@
         </a>
       </div>
     </div>
+    <loading v-else/>
   </div>
 </template>
 <script>
@@ -24,7 +25,7 @@ export default {
     }
   },
   created(){
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawer').then(res=>{
+    this.$axios.get('/api/drawer').then(res=>{
       this.data = res.data.data;
     })
   }

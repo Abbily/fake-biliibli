@@ -23,7 +23,7 @@ export default {
     }
   },
   created(){
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/rank').then(res=>{
+    this.$axios.get('/api/rank').then(res=>{
       this.month = res.data.month.data.items;
       this.week = res.data.week.data.items;
       this.day = res.data.day.data.items;
