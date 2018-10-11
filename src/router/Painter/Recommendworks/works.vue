@@ -19,7 +19,8 @@
             </span>
           </div>
           <div id="ILC">
-            <img v-if="detail.item.pictures" :src="detail.item.pictures[0].img_src"/>
+            <img v-if="detail.item.pictures && is404" :src="detail.item.pictures[0].img_src"/>
+            <loading :is404="is404"/>
             <cTitle>热门评论</cTitle>
             <div class="noreply">
               <div class="comment_box" v-for="item in comments.hots" :key="item.rpid" v-if="comments.hots">
@@ -38,7 +39,7 @@
             </div>
             <cTitle>评论</cTitle>
             <div class="comments">
-              <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments">
+              <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments && is404">
                 <div class="img_container">
                   <img :src="item.member.avatar"/>
                 </div>
@@ -65,6 +66,7 @@
                 </div>
                 <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
+              <loading :is404="is404"/>
             </div>
           </div>
         </div>
@@ -80,7 +82,8 @@ export default {
       comments: '',
       user: '',
       replies: '',
-      title: '作品详情'
+      title: '作品详情',
+      is404: false
     }
   },
   beforeRouteEnter(to,from,next){
@@ -93,6 +96,9 @@ export default {
     })
     this.$axios.get('/api/detail?doc_id='+this.$route.params.docId).then(res=>{
       this.detail = res.data.data
+      setTimeout(()=>{
+        this.is404 = true;
+      },700)
     })
     this.$axios.get('/api/comments?cid='+this.$route.params.docId).then(res=>{
       this.comments = res.data.data;

@@ -74,7 +74,6 @@ export default {
   width: 100%;
   position: absolute;
   top: 2.166666rem;
-  height: 100%;
   .illData{
     padding: 10px;
   }

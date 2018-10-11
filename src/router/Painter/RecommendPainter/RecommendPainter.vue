@@ -1,7 +1,7 @@
 <template>
   <div class="painter-name">
     <cTitle>推荐画师</cTitle>
-    <div class="author" v-if="data">
+    <div class="author" v-if="data && is404">
       <div v-for="item in data" class="painter" :key="item.uid">
         <a class="jumpUrl">
           <div class="imgBox">
@@ -13,7 +13,7 @@
         </a>
       </div>
     </div>
-    <loading v-else/>
+    <loading :is404="is404"/>
   </div>
 </template>
 <script>
@@ -22,11 +22,15 @@ export default {
     return {
       data: '',
       show: false,
+      is404: false
     }
   },
   created(){
     this.$axios.get('/api/drawer').then(res=>{
       this.data = res.data.data;
+      setTimeout(()=>{
+        this.is404 = true;
+      },700);
     })
   }
 }
@@ -40,7 +44,6 @@ export default {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    padding-bottom: 0.3rem;
     .painter{
       width: 33.3%;
       .jumpUrl{

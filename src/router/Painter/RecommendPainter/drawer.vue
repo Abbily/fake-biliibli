@@ -45,12 +45,12 @@
       </div>
       <div class="picture">
         <cTitle>相簿</cTitle>
-        <div class="illustration" v-if="pic">
+        <div class="illustration" v-if="is404">
           <div class="pic_container" v-for="item in pic" :key="item.doc_id">
             <img :src="item.pictures[0].img_src" @click="jumpDetail(item.doc_id)"/>
           </div>
         </div>
-        <loading v-else/>
+        <loading :is404="is404"/>
       </div>
       <router-view/>
     </div>
@@ -67,6 +67,7 @@ export default {
       scrollTop: '',
       title: '作品详情',
       timer: '',
+      is404: false,
     }
   },
   beforeRouteEnter(to,from,next){
@@ -79,6 +80,9 @@ export default {
     })
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawerillustration?uid='+this.$route.params.id).then(res=>{
       this.pic = res.data.data.items;
+      setTimeout(()=>{
+        this.is404 = true;
+      },1000)
     })
     if(this.$route.name === "drawer"){
       window.addEventListener('scroll', this.getScrollTop);
@@ -301,6 +305,7 @@ export default {
       position: relative;
       width: 100%;
       height: 18rem;
+      height: 100%;
       .pic_container{
         height: 2.5rem;
         float: left;
