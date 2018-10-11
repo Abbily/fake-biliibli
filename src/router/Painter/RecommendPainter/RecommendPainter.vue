@@ -13,7 +13,7 @@
         </a>
       </div>
     </div>
-    <loading :is404="is404"/>
+    <loading v-else :is404="is404"/>
   </div>
 </template>
 <script>
@@ -30,7 +30,7 @@ export default {
       this.data = res.data.data;
       setTimeout(()=>{
         this.is404 = true;
-      },700);
+      },0);
     })
   }
 }
@@ -44,6 +44,7 @@ export default {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    padding-bottom: .222222rem;
     .painter{
       width: 33.3%;
       .jumpUrl{

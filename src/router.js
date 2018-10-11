@@ -19,6 +19,9 @@ const routes = [
     path: '/paint',
     name: 'paint',
     component: paint,
+    meta: {
+      dontKeepAlive: true
+    },
     children: [
       {
         path: 'drawer/:id',
@@ -36,6 +39,9 @@ const routes = [
         path: 'detail/:docId/:uId',
         name: 'detail',
         component: detail,
+        /*meta: {
+          dontKeepAlive: false
+        }*/
       }
     ]
   },

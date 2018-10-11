@@ -70,10 +70,6 @@ export default {
       is404: false,
     }
   },
-  beforeRouteEnter(to,from,next){
-    window.scrollTo(0,0);
-    next();
-  },
   created(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
       this.data = res.data.data;

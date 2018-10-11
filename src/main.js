@@ -8,6 +8,7 @@ import '@/components/core/registerComponent';
 import axios from '@/components/core/axios.js';
 Vue.prototype.$axios = axios;
 
+
 new Vue({
   router,
   render: h => h(App)

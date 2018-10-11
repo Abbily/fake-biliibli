@@ -1,5 +1,5 @@
 <template>
-  <transition name="test-fade">
+  <transition name="test-fade" mode="out-in">
     <div class="work-detail" v-if="user && detail && comments">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="illustration" v-if="user && detail && comments">
@@ -19,8 +19,8 @@
             </span>
           </div>
           <div id="ILC">
-            <img v-if="detail.item.pictures && is404" :src="detail.item.pictures[0].img_src"/>
-            <loading :is404="is404"/>
+            <img v-for="i in detail.item.pictures" v-if="detail.item.pictures && is404" :src="i.img_src"/>
+            <loading v-else :is404="is404"/>
             <cTitle>热门评论</cTitle>
             <div class="noreply">
               <div class="comment_box" v-for="item in comments.hots" :key="item.rpid" v-if="comments.hots">
@@ -66,7 +66,7 @@
                 </div>
                 <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
-              <loading :is404="is404"/>
+              <loading v-else :is404="is404"/>
             </div>
           </div>
         </div>
@@ -86,22 +86,30 @@ export default {
       is404: false
     }
   },
-  beforeRouteEnter(to,from,next){
-    window.scrollTo(0,0);
+  /*beforeRouteEnter(to,from,next){
+    if(from.name==='rank' || from.name==='paint'){
+      to.meta.dontKeepAlive = true;
+    }
     next();
   },
+  beforeRouteLeave(to,from,next){
+    if(to.name==="paint" && from.name==="detail"){
+      from.meta.dontKeepAlive = false;
+    }
+    next();
+  },*/
   created(){
     this.$axios.get('/api/user?uid='+this.$route.params.uId).then(res=>{
       this.user = res.data.data
     })
     this.$axios.get('/api/detail?doc_id='+this.$route.params.docId).then(res=>{
       this.detail = res.data.data
-      setTimeout(()=>{
-        this.is404 = true;
-      },700)
     })
     this.$axios.get('/api/comments?cid='+this.$route.params.docId).then(res=>{
       this.comments = res.data.data;
+      setTimeout(()=>{
+        this.is404 = true;
+      },500)
     })
   },
   methods: {

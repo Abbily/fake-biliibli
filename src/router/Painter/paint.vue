@@ -31,6 +31,8 @@ export default {
     }
   },
   created(){
+    console.log(this.$route.meta);
+    console.log(1);
     this.getData();
     if(this.$route.path === "/paint"){
       window.addEventListener('scroll', this.getScrollTop);

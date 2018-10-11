@@ -26,7 +26,7 @@ export default {
   justify-content: center
   align-items: center
   padding: .2rem 0
-  z-index: 100
+  z-index: 20
   .btn
     width: 3.733333rem
     height: 1.066666rem

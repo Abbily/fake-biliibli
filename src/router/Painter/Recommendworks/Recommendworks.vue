@@ -26,7 +26,6 @@ export default{
   data(){
     return {
       i: 1,
-      show: false,
     }
   },
   methods: {
@@ -35,7 +34,6 @@ export default{
         name: 'detail',
         params: {docId:data.item.doc_id,uId:data.user.uid}
       });
-      this.show = !this.show;
     }
   }
 }
