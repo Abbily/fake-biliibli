@@ -47,6 +47,7 @@ export default {
     align-items: center;
     line-height: 0.899999rem;
     justify-content: center;
+    width: 100%;
     .tab-item{
       flex: 1;
       text-align: center;

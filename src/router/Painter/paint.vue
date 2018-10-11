@@ -1,10 +1,12 @@
 <template>
   <div class="paint-footer">
-    <slide/>
-    <painter/>
-    <cTitle v-if="data">推荐作品</cTitle>
-    <div class="illData" ref='illData'>
-      <works v-for="i in data" :illData="i" :key="i.item.doc_id" v-if="data"/>
+    <div v-if="show">
+      <slide/>
+      <painter/>
+      <cTitle v-if="data">推荐作品</cTitle>
+      <div class="illData" ref='illData'>
+        <works v-for="i in data" :illData="i" :key="i.item.doc_id" v-if="data" @onChildChange="onChildChange"/>
+      </div>
     </div>
     <router-view/>
   </div>
@@ -19,10 +21,22 @@ export default {
     painter,
     works
   },
+  watch:{
+    '$route'(to){
+      if(to.name==='drawer' || to.name==='detail'){
+        this.show = false;
+      } else {
+        this.show = true;
+      }
+    }
+  },
   created(){
     this.getData();
     if(this.$route.path === "/paint"){
       window.addEventListener('scroll', this.getScrollTop);
+    }
+    if(this.$route.path !== '/paint'){
+      this.show = false;
     }
   },
   data(){
@@ -31,9 +45,13 @@ export default {
       data: '',
       scrollTop: '',
       timer: '',
+      show: true,
     }
   },
   methods: {
+    onChildChange(){
+      this.show = false;
+    },
     getData(page=1){
       this.$axios.get('/api/recommends?page='+page).then(res=>{
         this.data?this.data.push(...res.data.items):(this.data=res.data.items);
@@ -56,6 +74,7 @@ export default {
   width: 100%;
   position: absolute;
   top: 2.166666rem;
+  height: 100%;
   .illData{
     padding: 10px;
   }

@@ -2,10 +2,13 @@
   <div id="app">
     <v-header></v-header>
     <v-nav></v-nav>
+    <router-view/>
+<!--
     <keep-alive>
       <router-view v-if="!$route.meta.dontKeepAlive"/>
     </keep-alive>
     <router-view v-if="$route.meta.dontKeepAlive"/>
+-->
   </div>
 </template>
 

@@ -45,11 +45,12 @@
       </div>
       <div class="picture">
         <cTitle>相簿</cTitle>
-        <div class="illustration">
+        <div class="illustration" v-if="pic">
           <div class="pic_container" v-for="item in pic" :key="item.doc_id">
             <img :src="item.pictures[0].img_src" @click="jumpDetail(item.doc_id)"/>
           </div>
         </div>
+        <loading v-else/>
       </div>
       <router-view/>
     </div>
@@ -57,6 +58,7 @@
 </template>
 <script>
 export default {
+  name: 'drawer',
   data(){
     return {
       data:'',
@@ -67,12 +69,10 @@ export default {
       timer: '',
     }
   },
-//  beforeRouteLeave(to,from,next){
-//    if(to.path === '/paint'){
-//      window.removeEventListener('scroll', this.getScrollTop);
-//    }
-//    next();
-//  },
+  beforeRouteEnter(to,from,next){
+    window.scrollTo(0,0);
+    next();
+  },
   created(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
       this.data = res.data.data;
@@ -115,7 +115,7 @@ export default {
 .slide-enter-active, .slide-leave-active
   transition: all 0.3s
 .slide-enter, .slide-leave-to
-  transform: translate3d(100%, 0, 0)
+  transform: translate(100%, 0);
 .drawer-Deatil{
   position: absolute;
   background: #444;
@@ -300,7 +300,7 @@ export default {
     .illustration{
       position: relative;
       width: 100%;
-      pointer-events: auto;
+      height: 18rem;
       .pic_container{
         height: 2.5rem;
         float: left;

@@ -1,10 +1,6 @@
 <template>
   <div id="loading">
     <img v-if="!is404" src="~@/assets/images/img_loading.png" width="64" alt="">
-    <div v-else>
-      <img src="~@/assets/images/empty-data.jpg" style="width: 100%" alt="">
-      <div class="btn" @click="goBack()">返回上一页</div>
-    </div>
   </div>
 </template>
 
@@ -16,17 +12,12 @@ export default {
       default: false
     }
   },
-  methods: {
-    goBack() {
-      this.$router.go(-1)
-    }
-  }
 }
 </script>
 
 <style lang="stylus" scoped>
 #loading
-  position: fixed
+  position: relative
   top: 0
   left: 0
   right: 0
@@ -34,7 +25,8 @@ export default {
   display: flex
   justify-content: center
   align-items: center
-  background: $base_dark
+  padding: .2rem 0
+  z-index: 100
   .btn
     width: 3.733333rem
     height: 1.066666rem

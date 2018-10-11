@@ -1,5 +1,5 @@
 <template>
-  <div id="card" @click="jumpDetail(illData)" v-if="illData">
+  <div id="card" @click="jumpDetail(illData)">
     <div class="ill_panel">
       <div class="img_container" :style="{backgroundImage:'url('+illData.item.pictures[0].img_src+')'}">
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="test-fade">
     <div class="work-detail" v-if="user && detail && comments">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="illustration" v-if="user && detail && comments">
@@ -83,6 +83,10 @@ export default {
       title: '作品详情'
     }
   },
+  beforeRouteEnter(to,from,next){
+    window.scrollTo(0,0);
+    next();
+  },
   created(){
     this.$axios.get('/api/user?uid='+this.$route.params.uId).then(res=>{
       this.user = res.data.data
@@ -102,23 +106,24 @@ export default {
 }
 </script>
 <style lang="stylus">
-.fade-enter-active, .fade-leave-active
+.test-fade-enter-active, .test-fade-leave-active
   transition: all 0.2s
-.fade-enter, .fade-leave-to
+.test-fade-enter, .test-fade-leave-to
   transform: translate3d(100%, 0, 0)
 
 .work-detail{
   position: absolute;
   background: #222;
-  z-index: 24;
+  z-index: 27;
   width: 100%;
   top:-2.166666rem;
-  overflow: hidden;
+  height: 100%;
   .illustration{
     padding: .133333rem;
     box-sizing: border-box;
     position: relative;
     top: 1.066666rem;
+    background: #222;
     .drawer{
       display: flex;
       align-items: center;
@@ -191,6 +196,7 @@ export default {
         font-size: .3rem;
         margin: .133333rem 0;
         color: #eee;
+        background: #222;
         .comment_box{
           display: flex;
           justify-content: flex-start;
