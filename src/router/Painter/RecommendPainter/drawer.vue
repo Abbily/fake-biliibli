@@ -80,9 +80,9 @@ export default {
         this.is404 = true;
       },1000)
     })
-//    if(this.$route.name === "drawer"){
-//      window.addEventListener('scroll', this.getScrollTop);
-//    }
+    if(this.$route.name === "drawer"){
+      window.addEventListener('scroll', this.getScrollTop);
+    }
   },
   methods: {
     back(){
