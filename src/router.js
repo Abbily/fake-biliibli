@@ -24,31 +24,31 @@ const routes = [
     },
     children: [
       {
-        path: 'drawer/:id',
-        name: 'drawer',
-        component: drawer,
-        children: [
-          {
-            path: 'drawerDetail/:uid',
-            name: 'drawerDetail',
-            component: drawerDetail,
-          }
-        ]
-      },
-      {
         path: 'detail/:docId/:uId',
         name: 'detail',
         component: detail,
-        /*meta: {
-          dontKeepAlive: false
-        }*/
-      }
+      },
+    ]
+  },
+  {
+    path: '/drawer/:id',
+    name: 'drawer',
+    component: drawer,
+    children: [
+      {
+        path: 'drawerDetail/:uid',
+        name: 'drawerDetail',
+        component: drawerDetail,
+      },
     ]
   },
   {
     path: '/rank',
     name: 'rank',
-    component: rank
+    component: rank,
+    meta: {
+      dontKeepAlive: true
+    },
   },
   {
     path: '/activity',

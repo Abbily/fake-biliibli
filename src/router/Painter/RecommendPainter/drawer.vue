@@ -121,7 +121,6 @@ export default {
   background: #444;
   z-index: 24;
   width: 100%;
-  top:-2.166666rem;
   overflow: hidden;
   .drawer_container_fixed{
     position: fixed;

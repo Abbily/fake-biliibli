@@ -5,7 +5,7 @@
       <div class="illustration" v-if="user && detail && comments">
         <div class="drawer">
           <div class="img_container">
-            <img :src="user.user.face"/>
+<!--            <img :src="user.user.face"/>-->
           </div>
           <div class="drawer_name">{{user.user.name}}</div>
           <div class="drawer_level">UP{{user.user.master_level}}</div>
@@ -78,14 +78,18 @@ export default {
     }
   },
   created(){
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
+    let id = +this.$route.params.id;
+    this.$axios.get('/api/user?uid='+id).then(res=>{
       this.user = res.data.data
     })
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.uid).then(res=>{
+    this.$axios.get('/api/detail?doc_id='+this.$route.params.uid).then(res=>{
       this.detail = res.data.data
     })
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.uid).then(res=>{
+    this.$axios.get('/api/comments?cid='+this.$route.params.uid).then(res=>{
       this.comments = res.data.data;
+      setTimeout(()=>{
+        this.is404 = true;
+      },500)
     })
   },
   methods: {
@@ -104,7 +108,6 @@ export default {
   z-index: 30;
   width: 100%;
   top:0;
-  overflow: hidden;
   .illustration{
     padding: .133333rem;
     box-sizing: border-box;
@@ -166,6 +169,7 @@ export default {
         font-size: .3rem;
         margin: .133333rem 0;
         color: #eee;
+        background: #444;
         .comment_box{
           display: flex;
           justify-content: flex-start;

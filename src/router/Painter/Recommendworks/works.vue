@@ -1,5 +1,5 @@
 <template>
-  <transition name="test-fade" mode="out-in">
+  <transition name="test-fade">
     <div class="work-detail" v-if="user && detail && comments">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="illustration" v-if="user && detail && comments">
@@ -86,18 +86,6 @@ export default {
       is404: false
     }
   },
-  /*beforeRouteEnter(to,from,next){
-    if(from.name==='rank' || from.name==='paint'){
-      to.meta.dontKeepAlive = true;
-    }
-    next();
-  },
-  beforeRouteLeave(to,from,next){
-    if(to.name==="paint" && from.name==="detail"){
-      from.meta.dontKeepAlive = false;
-    }
-    next();
-  },*/
   created(){
     this.$axios.get('/api/user?uid='+this.$route.params.uId).then(res=>{
       this.user = res.data.data

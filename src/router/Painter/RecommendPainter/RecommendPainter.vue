@@ -4,10 +4,8 @@
     <div class="author" v-if="data && is404">
       <div v-for="item in data" class="painter" :key="item.uid">
         <a class="jumpUrl">
-          <div class="imgBox">
-            <router-link :to="`/paint/drawer/${item.uid}`">
+          <div class="imgBox" @click="jumpUrl(item)">
               <img :src="item.head_url">
-            </router-link>
           </div>
           <div style="font-size:0.28rem;">{{item.name}}</div>
         </a>
@@ -32,6 +30,11 @@ export default {
         this.is404 = true;
       },0);
     })
+  },
+  methods: {
+    jumpUrl(data){
+      this.$router.push(`/drawer/${data.uid}`);
+    }
   }
 }
 </script>

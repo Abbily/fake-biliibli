@@ -1,12 +1,10 @@
 <template>
   <div class="paint-footer">
-    <div v-if="show">
-      <slide/>
-      <painter/>
-      <cTitle v-if="data">推荐作品</cTitle>
-      <div class="illData" ref='illData'>
-        <works v-for="i in data" :illData="i" :key="i.item.doc_id" v-if="data" @onChildChange="onChildChange"/>
-      </div>
+    <slide/>
+    <painter/>
+    <cTitle v-if="data">推荐作品</cTitle>
+    <div class="illData" ref='illData'>
+      <works v-for="i in data" :illData="i" :key="i.item.doc_id" v-if="data" @onChildChange="onChildChange"/>
     </div>
     <router-view/>
   </div>
@@ -21,24 +19,10 @@ export default {
     painter,
     works
   },
-  watch:{
-    '$route'(to){
-      if(to.name==='drawer' || to.name==='detail'){
-        this.show = false;
-      } else {
-        this.show = true;
-      }
-    }
-  },
   created(){
-    console.log(this.$route.meta);
-    console.log(1);
     this.getData();
     if(this.$route.path === "/paint"){
       window.addEventListener('scroll', this.getScrollTop);
-    }
-    if(this.$route.path !== '/paint'){
-      this.show = false;
     }
   },
   data(){
