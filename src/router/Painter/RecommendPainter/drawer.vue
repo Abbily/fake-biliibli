@@ -80,9 +80,9 @@ export default {
         this.is404 = true;
       },1000)
     })
-    if(this.$route.name === "drawer"){
-      window.addEventListener('scroll', this.getScrollTop);
-    }
+//    if(this.$route.name === "drawer"){
+//      window.addEventListener('scroll', this.getScrollTop);
+//    }
   },
   methods: {
     back(){
@@ -113,15 +113,15 @@ export default {
 </script>
 <style lang="stylus">
 .slide-enter-active, .slide-leave-active
-  transition: all 0.3s
+  transition: all 0.2s
 .slide-enter, .slide-leave-to
-  transform: translate(100%, 0);
+  transform: translate3d(100%, 0, 0)
+
 .drawer-Deatil{
   position: absolute;
-  background: #444;
+  background: #222;
   z-index: 24;
   width: 100%;
-  overflow: hidden;
   .drawer_container_fixed{
     position: fixed;
     top: 1.066666rem;

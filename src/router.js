@@ -21,14 +21,12 @@ const routes = [
     component: paint,
     meta: {
       dontKeepAlive: true
-    },
-    children: [
-      {
-        path: 'detail/:docId/:uId',
-        name: 'detail',
-        component: detail,
-      },
-    ]
+    }
+  },
+  {
+    path: 'detail/:docId/:uId',
+    name: 'detail',
+    component: detail,
   },
   {
     path: '/drawer/:id',

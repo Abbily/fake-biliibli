@@ -1,11 +1,11 @@
 <template>
-  <transition name="draw">
+  <transition name="slide">
     <div class="drawerDetail" v-if="user && detail && comments">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="illustration" v-if="user && detail && comments">
         <div class="drawer">
           <div class="img_container">
-<!--            <img :src="user.user.face"/>-->
+            <img :src="user.user.face"/>
           </div>
           <div class="drawer_name">{{user.user.name}}</div>
           <div class="drawer_level">UP{{user.user.master_level}}</div>
@@ -14,7 +14,8 @@
           <div class="title">{{detail.item.title}}</div>
           <div class="desc">{{detail.item.description}}</div>
           <div id="ILC">
-            <img v-if="detail.item.pictures" :src="detail.item.pictures[0].img_src"/>
+            <img v-for="i in detail.item.pictures" v-if="detail.item.pictures && is404" :src="i.img_src"/>
+            <loading v-else :is404="is404"/>
             <cTitle>热门评论</cTitle>
             <div class="noreply">
               <div class="comment_box" v-for="item in comments.hots" :key="item.rpid" v-if="comments.hots">
@@ -32,8 +33,8 @@
               <div v-if="!comments.hots" class="noreply1">暂无热门评论</div>
             </div>
             <cTitle>评论</cTitle>
-            <div class="comments">
-              <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments">
+            <!--<div class="comments">
+              <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments && is404">
                 <div class="img_container">
                   <img :src="item.member.avatar"/>
                 </div>
@@ -60,6 +61,37 @@
                 </div>
                 <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
+              <loading v-else :is404="is404"/>
+            </div>-->
+            <div class="comments">
+              <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments && is404">
+                <div class="img_container">
+                  <img :src="item.member.avatar"/>
+                </div>
+                <div class="content">
+                  <div class="user_box">
+                    <div class="uname">{{item.member.uname}}</div>
+                    <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                  </div>
+                  <div class="comment">{{item.content.message}}</div>
+                  <div class="replies">
+                    <div class="comment_box" v-for="item in item.replies" :key="item.rpid" v-if="comments.hots">
+                      <div class="img_container">
+                        <img :src="item.member.avatar"/>
+                      </div>
+                      <div class="content">
+                        <div class="user_box">
+                          <div class="uname">{{item.member.uname}}</div>
+                          <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                        </div>
+                        <div class="comment">{{item.content.message}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="!comments.replies" class="noreply1">暂无评论</div>
+              </div>
+              <loading v-else :is404="is404"/>
             </div>
           </div>
         </div>
@@ -74,22 +106,23 @@ export default {
       user: '',
       detail: '',
       comments: '',
-      title: '作品详情'
+      title: '作品详情',
+      is404: false
     }
   },
   created(){
     let id = +this.$route.params.id;
     this.$axios.get('/api/user?uid='+id).then(res=>{
-      this.user = res.data.data
+      this.user = res.data.data;
     })
     this.$axios.get('/api/detail?doc_id='+this.$route.params.uid).then(res=>{
-      this.detail = res.data.data
+      this.detail = res.data.data;
     })
     this.$axios.get('/api/comments?cid='+this.$route.params.uid).then(res=>{
       this.comments = res.data.data;
       setTimeout(()=>{
         this.is404 = true;
-      },500)
+      },600)
     })
   },
   methods: {
@@ -98,21 +131,23 @@ export default {
 }
 </script>
 <style lang="stylus">
-.draw-enter-active, .draw-leave-active
-  transition: all 0.3s
-.draw-enter, .v-leave-to
+.slide-enter-active, .slide-leave-active
+  transition: all 0.2s
+.slide-enter, .slide-leave-to
   transform: translate3d(100%, 0, 0)
 .drawerDetail{
   position: absolute;
-  background: #444;
+  background: #222;
   z-index: 30;
   width: 100%;
   top:0;
+  height: 100%;
   .illustration{
     padding: .133333rem;
     box-sizing: border-box;
     position: relative;
     top: 1.066666rem;
+    background: #222;
     .drawer{
       display: flex;
       align-items: center;
@@ -152,7 +187,7 @@ export default {
       }
       #ILC{
         width: 100%;
-        overflow:hidden;
+        height: 100%;
         img{
           width: 100%;
           display: inline-block;
@@ -169,7 +204,7 @@ export default {
         font-size: .3rem;
         margin: .133333rem 0;
         color: #eee;
-        background: #444;
+        background: #222;
         .comment_box{
           display: flex;
           justify-content: flex-start;

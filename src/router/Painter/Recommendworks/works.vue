@@ -1,5 +1,5 @@
 <template>
-  <transition name="test-fade">
+  <transition name="slide">
     <div class="work-detail" v-if="user && detail && comments">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="illustration" v-if="user && detail && comments">
@@ -86,6 +86,18 @@ export default {
       is404: false
     }
   },
+  /*beforeRouteEnter(to,from,next){
+    if(from.name==='rank' || from.name==='paint'){
+      to.meta.dontKeepAlive = true;
+    }
+    next();
+  },*/
+  /*beforeRouteLeave(to,from,next){
+    if(to.name==="paint" && from.name==="detail"){
+      from.meta.dontKeepAlive = true;
+    }
+    next();
+  },*/
   created(){
     this.$axios.get('/api/user?uid='+this.$route.params.uId).then(res=>{
       this.user = res.data.data
@@ -108,9 +120,9 @@ export default {
 }
 </script>
 <style lang="stylus">
-.test-fade-enter-active, .test-fade-leave-active
+.slide-enter-active, .slide-leave-active
   transition: all 0.2s
-.test-fade-enter, .test-fade-leave-to
+.slide-enter, .slide-leave-to
   transform: translate3d(100%, 0, 0)
 
 .work-detail{
@@ -118,7 +130,6 @@ export default {
   background: #222;
   z-index: 27;
   width: 100%;
-  top:-2.166666rem;
   height: 100%;
   .illustration{
     padding: .133333rem;
