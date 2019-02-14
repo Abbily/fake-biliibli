@@ -3,7 +3,7 @@ module.exports = {
     port: 8282,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://api.rozwel.club',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

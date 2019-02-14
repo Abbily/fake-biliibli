@@ -86,26 +86,14 @@ export default {
       is404: false
     }
   },
-  /*beforeRouteEnter(to,from,next){
-    if(from.name==='rank' || from.name==='paint'){
-      to.meta.dontKeepAlive = true;
-    }
-    next();
-  },*/
-  /*beforeRouteLeave(to,from,next){
-    if(to.name==="paint" && from.name==="detail"){
-      from.meta.dontKeepAlive = true;
-    }
-    next();
-  },*/
   created(){
-    this.$axios.get('/api/user?uid='+this.$route.params.uId).then(res=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
       this.user = res.data.data
     })
-    this.$axios.get('/api/detail?doc_id='+this.$route.params.docId).then(res=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
       this.detail = res.data.data
     })
-    this.$axios.get('/api/comments?cid='+this.$route.params.docId).then(res=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.docId).then(res=>{
       this.comments = res.data.data;
       setTimeout(()=>{
         this.is404 = true;

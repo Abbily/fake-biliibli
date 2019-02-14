@@ -30,7 +30,7 @@ export default {
     }
   },
   created(){
-    this.$axios.get('/api/center').then((res)=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/center').then((res)=>{
       this.data = res.data.data.items;
     })
   },

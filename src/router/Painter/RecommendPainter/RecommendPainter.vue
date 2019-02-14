@@ -24,7 +24,7 @@ export default {
     }
   },
   created(){
-    this.$axios.get('/api/drawer').then(res=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawer').then(res=>{
       this.data = res.data.data;
       setTimeout(()=>{
         this.is404 = true;

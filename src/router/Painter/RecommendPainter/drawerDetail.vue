@@ -112,13 +112,13 @@ export default {
   },
   created(){
     let id = +this.$route.params.id;
-    this.$axios.get('/api/user?uid='+id).then(res=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+id).then(res=>{
       this.user = res.data.data;
     })
-    this.$axios.get('/api/detail?doc_id='+this.$route.params.uid).then(res=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/detail?doc_id='+this.$route.params.uid).then(res=>{
       this.detail = res.data.data;
     })
-    this.$axios.get('/api/comments?cid='+this.$route.params.uid).then(res=>{
+    this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.uid).then(res=>{
       this.comments = res.data.data;
       setTimeout(()=>{
         this.is404 = true;
