@@ -1,25 +1,18 @@
 import axios from 'axios';
 
-//if(process.env.NODE_ENV == 'development'){
-//	axios.defaults.baseURL = '/api';
-//}
-
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.timeout = 10000;
 
+let baseAxios;
 
-axios.interceptors.request.use((config) => {
-    return config;
-  },err => {
-      return Promise.reject(err);
-  });
-
-
-axios.interceptors.response.use((config) => {
-    if(config.status == 200){
-      return config;
-    }
-  }, error => {
-    return Promise.reject(error);
-  });
-export default axios;
+if (process.env.NODE_ENV === 'production') {
+  baseAxios = axios.create({
+    baseURL: 'https://api.rozwel.club/api/bilibili/api/',
+    timeout: 5000
+  })
+} else {
+  baseAxios = axios.create({
+    baseURL: '/api',
+    timeout: 5000
+  })
+}
+export default baseAxios;

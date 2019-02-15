@@ -1,8 +1,8 @@
 <template>
   <transition name="slide">
-    <div class="work-detail" v-if="user && detail && comments">
+    <div class="work-detail" v-if="user && detail">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
-      <div class="illustration" v-if="user && detail && comments">
+      <div class="illustration" v-if="user && detail">
         <div class="drawer">
           <div class="img_container">
             <img :src="user.user.face"/>
@@ -18,15 +18,15 @@
               <a>{{item.tag}}</a>
             </span>
           </div>
-          <div id="ILC">
-            <img v-for="i in detail.item.pictures" v-if="detail.item.pictures && is404" :src="i.img_src"/>
+          <!--<div id="ILC">
+            <img v-for="i in detail.item.pictures" v-if="detail.item.pictures && is404" :src="i.img_src" :key="i"/>
             <loading v-else :is404="is404"/>
             <cTitle>热门评论</cTitle>
             <div class="noreply">
               <div class="comment_box" v-for="item in comments.hots" :key="item.rpid" v-if="comments.hots">
                 <div class="img_container">
                   <img :src="item.member.avatar"/>
-                </div>
+                </div>r
                 <div class="content">
                   <div class="user_box">
                     <div class="uname">{{item.member.uname}}</div>
@@ -68,7 +68,7 @@
               </div>
               <loading v-else :is404="is404"/>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -93,12 +93,12 @@ export default {
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
       this.detail = res.data.data
     })
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.docId).then(res=>{
+    /*this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.docId).then(res=>{
       this.comments = res.data.data;
       setTimeout(()=>{
         this.is404 = true;
       },500)
-    })
+    })*/
   },
   methods: {
     back(){
