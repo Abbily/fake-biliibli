@@ -1,8 +1,8 @@
 <template>
   <transition name="slide">
-    <div class="drawerDetail" v-if="user && detail && comments">
+    <div class="drawerDetail" v-if="user && detail">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
-      <div class="illustration" v-if="user && detail && comments">
+      <div class="illustration" v-if="user && detail">
         <div class="drawer">
           <div class="img_container">
             <img :src="user.user.face"/>
@@ -63,36 +63,7 @@
               </div>
               <loading v-else :is404="is404"/>
             </div>-->
-            <div class="comments">
-              <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments && is404">
-                <div class="img_container">
-                  <img :src="item.member.avatar"/>
-                </div>
-                <div class="content">
-                  <div class="user_box">
-                    <div class="uname">{{item.member.uname}}</div>
-                    <div class="ulevel">L{{item.member.level_info.current_level}}</div>
-                  </div>
-                  <div class="comment">{{item.content.message}}</div>
-                  <div class="replies">
-                    <div class="comment_box" v-for="item in item.replies" :key="item.rpid" v-if="comments.hots">
-                      <div class="img_container">
-                        <img :src="item.member.avatar"/>
-                      </div>
-                      <div class="content">
-                        <div class="user_box">
-                          <div class="uname">{{item.member.uname}}</div>
-                          <div class="ulevel">L{{item.member.level_info.current_level}}</div>
-                        </div>
-                        <div class="comment">{{item.content.message}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div v-if="!comments.replies" class="noreply1">暂无评论</div>
-              </div>
-              <loading v-else :is404="is404"/>
-            </div>
+            <div class="noreply1">暂无评论</div>
           </div>
         </div>
       </div>
@@ -112,18 +83,31 @@ export default {
   },
   created(){
     let id = +this.$route.params.id;
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+id).then(res=>{
-      this.user = res.data.data;
+    
+    const promise1 = new Promise((resolve,reject)=>{
+    	this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+id).then(res=>{
+	      this.user = res.data.data;
+	      resolve(res.data.data);
+	    })
     })
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/detail?doc_id='+this.$route.params.uid).then(res=>{
-      this.detail = res.data.data;
+    const promise2 = new Promise((resolve,reject)=>{
+    	this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.uid).then(res=>{
+	      this.detail = res.data.data;
+	      resolve(res.data.data);
+	    })
     })
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.uid).then(res=>{
-      this.comments = res.data.data;
-      setTimeout(()=>{
-        this.is404 = true;
-      },600)
+    Promise.all([promise1,promise2]).then((res)=>{
+    	setTimeout(()=>{
+    		window.scrollTo(0,0);
+    		this.is404 = true;
+    	},600)
     })
+//  this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.uid).then(res=>{
+//    this.comments = res.data.data;
+//    setTimeout(()=>{
+//      this.is404 = true;
+//    },600)
+//  })
   },
   methods: {
 
@@ -141,7 +125,7 @@ export default {
   z-index: 30;
   width: 100%;
   top:0;
-  height: 100%;
+  min-height: 100vh;
   .illustration{
     padding: .133333rem;
     box-sizing: border-box;

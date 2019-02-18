@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <div class="work-detail" v-if="user && detail">
+    <div class="work-detail">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="illustration" v-if="user && detail">
         <div class="drawer">
@@ -18,11 +18,11 @@
               <a>{{item.tag}}</a>
             </span>
           </div>
-          <!--<div id="ILC">
-            <img v-for="i in detail.item.pictures" v-if="detail.item.pictures && is404" :src="i.img_src" :key="i"/>
+          <div id="ILC">
+            <img v-for="i in detail.item.pictures" v-if="detail.item.pictures && is404" :src="i.img_src"/>
             <loading v-else :is404="is404"/>
             <cTitle>热门评论</cTitle>
-            <div class="noreply">
+            <!--<div class="noreply">
               <div class="comment_box" v-for="item in comments.hots" :key="item.rpid" v-if="comments.hots">
                 <div class="img_container">
                   <img :src="item.member.avatar"/>
@@ -36,9 +36,10 @@
                 </div>
               </div>
               <div v-if="!comments.hots" class="noreply1">暂无热门评论</div>
-            </div>
+            </div>-->
+            <div class="noreply1">暂无热门评论</div>
             <cTitle>评论</cTitle>
-            <div class="comments">
+            <!--<div class="comments">
               <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments && is404">
                 <div class="img_container">
                   <img :src="item.member.avatar"/>
@@ -66,9 +67,10 @@
                 </div>
                 <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
-              <loading v-else :is404="is404"/>
+              <loading v-else :is404="is404"/>-->
+              <div class="noreply1">暂无评论</div>
             </div>
-          </div>-->
+          </div>
         </div>
       </div>
     </div>
@@ -91,7 +93,8 @@ export default {
       this.user = res.data.data
     })
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
-      this.detail = res.data.data
+      this.detail = res.data.data;
+      this.is404 = true;
     })
     /*this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.docId).then(res=>{
       this.comments = res.data.data;

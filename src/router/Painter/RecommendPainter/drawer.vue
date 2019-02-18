@@ -43,11 +43,11 @@
           </a>
         </div>
       </div>
-      <div class="picture">
+      <div class="picture" v-show="isShow">
         <cTitle>相簿</cTitle>
         <div class="illustration" v-if="is404">
-          <div class="pic_container" v-for="item in pic" :key="item.doc_id">
-            <img :src="item.pictures[0].img_src" @click="jumpDetail(item.doc_id)"/>
+          <div class="pic_container" v-for="item in pic" :key="item.doc_id" @click="jumpDetail(item.doc_id)">
+            <img :src="item.pictures[0].img_src"/>
           </div>
         </div>
         <loading :is404="is404"/>
@@ -68,7 +68,17 @@ export default {
       title: '作品详情',
       timer: '',
       is404: false,
+      isShow: true,
     }
+  },
+  watch: {
+  	'$route'(to, from) {
+  		if(to.name === 'drawerDetail'){
+  			this.isShow = false;
+  		} else {
+  			this.isShow = true;
+  		}
+  	}
   },
   created(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
@@ -297,10 +307,8 @@ export default {
   }
   .picture{
     .illustration{
-      position: relative;
       width: 100%;
       height: 18rem;
-      height: 100%;
       .pic_container{
         height: 2.5rem;
         float: left;
