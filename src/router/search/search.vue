@@ -1,7 +1,7 @@
 <template>
   <transition name="slide">
     <div id="search">
-      <cHeader :title="title" :needBack="true"></cHeader>
+      <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="search-input">
         <img src="@/assets/images/glass.png"/>
         <div class="input-container">
@@ -66,6 +66,7 @@ export default {
         color: #fff;
         background: #666;
         border: none;
+        outline: none;
       }
     }
   }

@@ -5,9 +5,7 @@
     </div>
     <p class="headTitle">{{title}}</p>
     <div class="space">
-      <div>
-        <img class="search" src="@/assets/images/search.png" @click="jumpSearch" v-if='search'>
-      </div>
+      <img class="search" src="@/assets/images/search.png" @click="jumpSearch" v-if='search'>
     </div>
   </div>
 </template>
@@ -46,7 +44,7 @@ export default {
   position: fixed;
   top: 0;
   z-index: 24;
-  width:100%;
+  width: 100vw;
   height: 1.066666rem;
   background: #444;
   display: flex;
@@ -54,9 +52,7 @@ export default {
   justify-content: center;
   box-shadow: 0 0.053333rem 0.053333rem #222;
   .space{
-    display:flex;
     flex: 1;
-    align-items: center;
     .back{
       width: 0.5rem;
       height: 0.5rem;

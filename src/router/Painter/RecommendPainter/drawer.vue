@@ -46,7 +46,8 @@
       <div class="picture" v-show="isShow">
         <cTitle>相簿</cTitle>
         <div class="illustration" v-if="is404">
-          <div class="pic_container" v-for="item in pic" :key="item.doc_id" @click="jumpDetail(item.doc_id)">
+          <div class="pic_container" v-for="item in pic" :key="item.doc_id"
+           @click="jumpDetail(item.doc_id)">
             <img :src="item.pictures[0].img_src"/>
           </div>
         </div>
@@ -88,7 +89,7 @@ export default {
       this.pic = res.data.data.items;
       setTimeout(()=>{
         this.is404 = true;
-      },1000)
+      },1500)
     })
     if(this.$route.name === "drawer"){
       window.addEventListener('scroll', this.getScrollTop);

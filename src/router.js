@@ -20,7 +20,8 @@ const routes = [
     name: 'paint',
     component: paint,
     meta: {
-      dontKeepAlive: true
+      dontKeepAlive: true,
+      label: '画友'
     }
   },
   {
@@ -45,13 +46,17 @@ const routes = [
     name: 'rank',
     component: rank,
     meta: {
-      dontKeepAlive: true
+      dontKeepAlive: true,
+      label: '排行榜'
     },
   },
   {
     path: '/activity',
     name: 'activity',
-    component: activity
+    component: activity,
+    meta: {
+    	label: '活动中心'
+    }
   },
   {
     path: '/search',
