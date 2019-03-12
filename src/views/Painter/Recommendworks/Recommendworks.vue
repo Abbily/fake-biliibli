@@ -25,7 +25,6 @@ export default{
   },
   data(){
     return {
-      i: 1,
     }
   },
   methods: {

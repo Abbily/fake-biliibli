@@ -19,10 +19,10 @@
             </span>
           </div>
           <div id="ILC">
-            <div v-if="detail.item.pictures && is404">
+            <div v-if="detail.item.pictures">
               <img v-for="(i, index) in detail.item.pictures" :key=index :src="i.img_src"/>
             </div>
-            <loading v-else :is404="is404"/>
+            <loading v-else/>
             <cTitle>热门评论</cTitle>
             <div class="noreply">
               <div v-for="item in comments.hots" :key="item.rpid">
@@ -43,7 +43,7 @@
             </div>
             <cTitle>评论</cTitle>
             <div class="comments">
-              <div v-if="comments && is404">
+              <div v-if="comments">
                 <div class="comment_box" v-for="item in comments.replies" :key="item.rpid">
                   <div class="img_container">
                     <img :src="item.member.avatar"/>
@@ -74,7 +74,7 @@
                 </div>
                 <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
-              <loading v-else :is404="is404"/>
+              <loading v-else/>
             </div>
           </div>
         </div>
@@ -95,32 +95,27 @@ export default {
     }
   },
   created(){
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
-      this.user = res.data.data
-    })
-    this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
-      this.detail = res.data.data;
-      this.is404 = true;
-    })
-    this.$axios.get(`https://api.rozwel.club/api/bilibili/api/comments?uid=${this.$route.params.docId}`).then(res=>{
-      this.comments = res.data.data;
-      setTimeout(()=>{
-        this.is404 = true;
-      },500)
-    })
+    this.getData();
   },
   methods: {
-    back(){
+    back() {
       this.$router.go(-1);
+    },
+    getData() {
+      this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
+        this.user = res.data.data
+      })
+      this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
+        this.detail = res.data.data;
+      })
+      this.$axios.get(`https://api.rozwel.club/api/bilibili/api/comments?uid=${this.$route.params.docId}`).then(res=>{
+        this.comments = res.data.data;
+      })
     }
   }
 }
 </script>
 <style lang="stylus">
-.slide-enter-active, .slide-leave-active
-  transition: all 0.2s
-.slide-enter, .slide-leave-to
-  transform: translate3d(100%, 0, 0)
 
 .work-detail{
   position: absolute;

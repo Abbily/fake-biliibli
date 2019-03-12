@@ -14,29 +14,31 @@
           <div class="title">{{detail.item.title}}</div>
           <div class="desc">{{detail.item.description}}</div>
           <div id="ILC">
-            <div v-if="detail.item.pictures && is404">
+            <div v-if="detail.item.pictures">
               <img v-for="i in detail.item.pictures" :src="i.img_src"/>
             </div>
-            <loading v-else :is404="is404"/>
+            <loading v-else/>
             <cTitle>热门评论</cTitle>
             <div class="noreply">
-              <div class="comment_box" v-for="item in comments.hots" :key="item.rpid" v-if="comments.hots">
-                <div class="img_container">
-                  <img :src="item.member.avatar"/>
-                </div>
-                <div class="content">
-                  <div class="user_box">
-                    <div class="uname">{{item.member.uname}}</div>
-                    <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+              <div v-if="comments.hots">
+                <div class="comment_box" v-for="item in comments.hots" :key="item.rpid">
+                  <div class="img_container">
+                    <img :src="item.member.avatar"/>
                   </div>
-                  <div class="comment">{{item.content.message}}</div>
+                  <div class="content">
+                    <div class="user_box">
+                      <div class="uname">{{item.member.uname}}</div>
+                      <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                    </div>
+                    <div class="comment">{{item.content.message}}</div>
+                  </div>
                 </div>
               </div>
               <div v-if="!comments.hots" class="noreply1">暂无热门评论</div>
             </div>
             <cTitle>评论</cTitle>
             <div class="comments">
-              <div v-if="comments && is404">
+              <div v-if="comments">
                 <div class="comment_box" v-for="item in comments.replies" :key="item.rpid">
                   <div class="img_container">
                     <img :src="item.member.avatar"/>
@@ -48,16 +50,18 @@
                     </div>
                     <div class="comment">{{item.content.message}}</div>
                     <div class="replies">
-                      <div class="comment_box" v-for="item in item.replies" :key="item.rpid" v-if="comments.hots">
-                        <div class="img_container">
-                          <img :src="item.member.avatar"/>
-                        </div>
-                        <div class="content">
-                          <div class="user_box">
-                            <div class="uname">{{item.member.uname}}</div>
-                            <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                      <div v-if="comments.hots">
+                        <div class="comment_box" v-for="item in item.replies" :key="item.rpid">
+                          <div class="img_container">
+                            <img :src="item.member.avatar"/>
                           </div>
-                          <div class="comment">{{item.content.message}}</div>
+                          <div class="content">
+                            <div class="user_box">
+                              <div class="uname">{{item.member.uname}}</div>
+                              <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                            </div>
+                            <div class="comment">{{item.content.message}}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -65,7 +69,7 @@
                 </div>
                 <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
-              <loading v-else :is404="is404"/>
+              <loading v-else/>
             </div>
           </div>
         </div>
@@ -101,11 +105,8 @@ export default {
     })
     const promise3 = new Promise((resolve,reject)=>{
       this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?uid='+this.$route.params.uid).then(res=>{
-      this.comments = res.data.data;
-      resolve(res.data.data);
-        setTimeout(()=>{
-          this.is404 = true;
-        },600)
+        this.comments = res.data.data;
+        resolve(res.data.data);
       })
     })
     Promise.all([promise1,promise2,promise3]).then((res)=>{
