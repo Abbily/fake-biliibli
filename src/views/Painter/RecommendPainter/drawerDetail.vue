@@ -14,7 +14,9 @@
           <div class="title">{{detail.item.title}}</div>
           <div class="desc">{{detail.item.description}}</div>
           <div id="ILC">
-            <img v-for="i in detail.item.pictures" v-if="detail.item.pictures && is404" :src="i.img_src"/>
+            <div v-if="detail.item.pictures && is404">
+              <img v-for="i in detail.item.pictures" :src="i.img_src"/>
+            </div>
             <loading v-else :is404="is404"/>
             <cTitle>热门评论</cTitle>
             <div class="noreply">
@@ -33,28 +35,30 @@
               <div v-if="!comments.hots" class="noreply1">暂无热门评论</div>
             </div>
             <cTitle>评论</cTitle>
-            <!--<div class="comments">
-              <div class="comment_box" v-for="item in comments.replies" :key="item.rpid" v-if="comments && is404">
-                <div class="img_container">
-                  <img :src="item.member.avatar"/>
-                </div>
-                <div class="content">
-                  <div class="user_box">
-                    <div class="uname">{{item.member.uname}}</div>
-                    <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+            <div class="comments">
+              <div v-if="comments && is404">
+                <div class="comment_box" v-for="item in comments.replies" :key="item.rpid">
+                  <div class="img_container">
+                    <img :src="item.member.avatar"/>
                   </div>
-                  <div class="comment">{{item.content.message}}</div>
-                  <div class="replies">
-                    <div class="comment_box" v-for="item in item.replies" :key="item.rpid" v-if="comments.hots">
-                      <div class="img_container">
-                        <img :src="item.member.avatar"/>
-                      </div>
-                      <div class="content">
-                        <div class="user_box">
-                          <div class="uname">{{item.member.uname}}</div>
-                          <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                  <div class="content">
+                    <div class="user_box">
+                      <div class="uname">{{item.member.uname}}</div>
+                      <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                    </div>
+                    <div class="comment">{{item.content.message}}</div>
+                    <div class="replies">
+                      <div class="comment_box" v-for="item in item.replies" :key="item.rpid" v-if="comments.hots">
+                        <div class="img_container">
+                          <img :src="item.member.avatar"/>
                         </div>
-                        <div class="comment">{{item.content.message}}</div>
+                        <div class="content">
+                          <div class="user_box">
+                            <div class="uname">{{item.member.uname}}</div>
+                            <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                          </div>
+                          <div class="comment">{{item.content.message}}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -62,8 +66,7 @@
                 <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
               <loading v-else :is404="is404"/>
-            </div>-->
-            <div class="noreply1">暂无评论</div>
+            </div>
           </div>
         </div>
       </div>
@@ -92,22 +95,26 @@ export default {
     })
     const promise2 = new Promise((resolve,reject)=>{
     	this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.uid).then(res=>{
-	      this.detail = res.data.data;
+        this.detail = res.data.data;
 	      resolve(res.data.data);
 	    })
     })
-    Promise.all([promise1,promise2]).then((res)=>{
+    const promise3 = new Promise((resolve,reject)=>{
+      this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?uid='+this.$route.params.uid).then(res=>{
+      this.comments = res.data.data;
+      resolve(res.data.data);
+        setTimeout(()=>{
+          this.is404 = true;
+        },600)
+      })
+    })
+    Promise.all([promise1,promise2,promise3]).then((res)=>{
     	setTimeout(()=>{
     		window.scrollTo(0,0);
     		this.is404 = true;
     	},600)
     })
-//  this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?cid='+this.$route.params.uid).then(res=>{
-//    this.comments = res.data.data;
-//    setTimeout(()=>{
-//      this.is404 = true;
-//    },600)
-//  })
+    
   },
   methods: {
 

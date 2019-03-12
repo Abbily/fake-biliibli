@@ -2,13 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
-const paint = () => import('@/router/Painter/paint.vue');
-const rank = () => import('@/router/rank/rank.vue');
-const activity = () => import('@/router/activity/activity.vue');
-const drawer = () => import('@/router/Painter/RecommendPainter/drawer.vue');
-const drawerDetail = () => import('@/router/Painter/RecommendPainter/drawerDetail.vue');
-const detail = () => import('@/router/Painter/Recommendworks/works.vue');
-const search = () => import('@/router/search/search.vue');
+const paint = () => import('@/views/Painter/paint.vue');
+const rank = () => import('@/views/rank/rank.vue');
+const activity = () => import('@/views/activity/activity.vue');
+const drawer = () => import('@/views/Painter/RecommendPainter/drawer.vue');
+const drawerDetail = () => import('@/views/Painter/RecommendPainter/drawerDetail.vue');
+const detail = () => import('@/views/Painter/Recommendworks/works.vue');
+const search = () => import('@/views/search/search.vue');
 
 const routes = [
   {
