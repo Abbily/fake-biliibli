@@ -7,7 +7,7 @@ const rank = () => import('@/views/rank/rank.vue');
 const activity = () => import('@/views/activity/activity.vue');
 const drawer = () => import('@/views/Painter/RecommendPainter/drawer.vue');
 const drawerDetail = () => import('@/views/Painter/RecommendPainter/drawerDetail.vue');
-const detail = () => import('@/views/Painter/Recommendworks/works.vue');
+const detail = () => import('@/views/Painter/Recommendworks/workDetail.vue');
 const search = () => import('@/views/search/search.vue');
 
 const routes = [
