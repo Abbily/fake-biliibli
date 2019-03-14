@@ -42,7 +42,6 @@ export default{
   border-radius: 0.133333rem;
   background: #444;
   box-sizing: border-box;
-  overflow: hidden;
   margin-bottom: 0.266666rem;
   .ill_panel{
     .img_container{

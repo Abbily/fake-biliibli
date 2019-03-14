@@ -23,11 +23,13 @@ const routes = [
       dontKeepAlive: true,
       label: '画友'
     },
-  },
-  {
-    path: 'detail/:docId/:uId',
-    name: 'detail',
-    component: detail,
+    children: [
+      {
+        path: 'detail/:docId/:uId',
+        name: 'detail',
+        component: detail,
+      },
+    ]
   },
   {
     path: '/drawer/:id',
@@ -55,7 +57,7 @@ const routes = [
     name: 'activity',
     component: activity,
     meta: {
-    	label: '活动中心'
+      label: '活动中心'
     }
   },
   {

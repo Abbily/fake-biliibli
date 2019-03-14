@@ -1,7 +1,7 @@
 <template>
   <div class="painter-name">
     <cTitle>推荐画师</cTitle>
-    <div class="author" v-if="data && is404">
+    <div class="author" v-if="data">
       <div v-for="item in data" class="painter" :key="item.uid">
         <a class="jumpUrl">
           <div class="imgBox" @click="jumpUrl(item)">
@@ -11,7 +11,7 @@
         </a>
       </div>
     </div>
-    <loading v-else :is404="is404"/>
+    <loading v-else/>
   </div>
 </template>
 <script>
@@ -26,9 +26,6 @@ export default {
   created(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawer').then(res=>{
       this.data = res.data.data;
-      setTimeout(()=>{
-        this.is404 = true;
-      },0);
     })
   },
   methods: {

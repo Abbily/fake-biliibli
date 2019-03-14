@@ -114,11 +114,9 @@ export default {
       })
     })
     Promise.all([user,detail,comments]).then((res)=>{
-      this.initScroll();
     	setTimeout(()=>{
-    		window.scrollTo(0,0);
-        this.myScroll.refresh();
-    	},300)
+    		this.initScroll();
+    	},600)
     })
     
   },

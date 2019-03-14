@@ -7,8 +7,8 @@
       <div class="illData" ref='illData' v-if="data">
         <works v-for="i in data" :illData="i" :key="i.item.doc_id" @onChildChange="onChildChange"/>
       </div>
-      <router-view/>
     </div>
+    <router-view/>
   </div>
 </template>
 <script>

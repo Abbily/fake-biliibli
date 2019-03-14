@@ -40,6 +40,7 @@
                 <img :src="item.pictures[0].img_src"/>
               </div>
             </div>
+            <div style="height: 1.2rem"/>
           </div>
           <loading v-if="!pic"/>
         </div>
@@ -84,7 +85,6 @@ export default {
       scrollTop: '',
       title: '作品详情',
       timer: '',
-      is404: false,
       isShow: true,
     }
   },
@@ -103,10 +103,9 @@ export default {
     })
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawerillustration?uid='+this.$route.params.id).then(res=>{
       this.pic = res.data.data.items;
-      setTimeout(()=>{
-        this.is404 = true;
+      setTimeout(() => {
         this.initScroll();
-      },300)
+      },600)
     })
     // if(this.$route.name === "drawer"){
     //   window.addEventListener('scroll', this.getScrollTop);
@@ -185,7 +184,7 @@ export default {
       top: 1.066666rem;
       left: 0;
       height: 1.8rem;
-      width: 100%;
+      width: 100vw;
       background: #333;
       display: flex;
       flex-flow: row nowrap;
@@ -244,6 +243,7 @@ export default {
     .drawer_container{
       height: 6.3rem;
       padding-top: 1.066666rem;
+      margin-top: 1.066666rem;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -356,13 +356,13 @@ export default {
     .picture{
       .illustration{
         width: 100%;
-        height: 18rem;
+        display: flex;
+        flex-wrap: wrap;
         .pic_container{
           height: 2.5rem;
-          float: left;
           border-radius: .133333rem;
           overflow: hidden;
-          margin: 6px;
+          margin: .12rem;
           width: 30%;
           img{
             width: 100%;

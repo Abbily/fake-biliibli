@@ -1,6 +1,7 @@
 <template>
   <transition name="slide">
     <div class="work-detail">
+      <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="work_container">
         <div id="wrapper_container">
             <div class="illustration" v-if="user && detail">
@@ -83,8 +84,6 @@
             </div>
         </div>
       </div>
-      <cHeader :title="title" :needBack="true" :search="false"></cHeader>
-      
     </div>
   </transition>
 </template>
@@ -102,6 +101,7 @@ export default {
     }
   },
   created(){
+    
     this.getData();
   },
   methods: {
@@ -128,7 +128,9 @@ export default {
         })
       })
       Promise.all([user, detail, comments]).then((res) => {
-        this.initScroll();
+        setTimeout(() => {
+          this.initScroll();
+        },600)
       })
       // this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
       //   this.user = res.data.data
@@ -160,8 +162,8 @@ export default {
   position: absolute;
   background: #222;
   z-index: 27;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  top: 0;
   .work_container{
     height: 100vh;
     #wrapper_container{
