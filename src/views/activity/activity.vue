@@ -35,7 +35,7 @@ export default {
       return Y+M+D;
     }
   },
-  created(){
+  mounted(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/center').then((res)=>{
       this.data = res.data.data.items;
       setTimeout(() => {

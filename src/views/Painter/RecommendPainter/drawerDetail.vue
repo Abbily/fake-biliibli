@@ -3,7 +3,7 @@
     <div class="drawer_box">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="drawerDetail">
-        <div id="wrapper_box">
+        <div id="wrapper_box" @touchmove.prevent>
           <div class="illustration" v-if="user && detail">
             <div class="drawer">
               <div class="img_container">
@@ -83,7 +83,7 @@
   </transition>
 </template>
 <script>
-import MoreScroll from 'iscroll/build/iscroll-probe';
+import MiniScroll from 'iscroll/build/iscroll';
 export default {
   data(){
     return {
@@ -93,22 +93,22 @@ export default {
       title: '作品详情',
     }
   },
-  created(){
+  mounted(){
     let id = +this.$route.params.id;
-    const user = new Promise((resolve,reject)=>{
-    	this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+id).then(res=>{
+    const user = new Promise((resolve)=>{
+    	this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid=' + id).then(res=>{
 	      this.user = res.data.data;
 	      resolve(this.user);
 	    })
     })
-    const detail = new Promise((resolve,reject)=>{
-    	this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.uid).then(res=>{
+    const detail = new Promise((resolve)=>{
+    	this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id=' + this.$route.params.uid).then(res=>{
         this.detail = res.data.data;
 	      resolve(this.detail);
 	    })
     })
-    const comments = new Promise((resolve,reject)=>{
-      this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?uid='+this.$route.params.uid).then(res=>{
+    const comments = new Promise((resolve)=>{
+      this.$axios.get('https://api.rozwel.club/api/bilibili/api/comments?uid=' + this.$route.params.uid).then(res=>{
         this.comments = res.data.data;
         resolve(this.comments);
       })
@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     initScroll() {   // 初始化iscroll
-      let IScroll = MoreScroll;
+      let IScroll = MiniScroll;
       this.myScroll = new IScroll('.drawerDetail', {
           disableMouse: false,
           scrollbars: false,

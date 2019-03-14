@@ -97,7 +97,7 @@ export default {
   // 		}
   // 	}
   // },
-  created(){
+  mounted(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
       this.data = res.data.data;
     })

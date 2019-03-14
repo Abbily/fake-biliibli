@@ -1,5 +1,5 @@
 <template>
-  <transition name="slide">
+  <transition name="fade">
     <div class="work-detail">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="work_container">
@@ -88,7 +88,7 @@
   </transition>
 </template>
 <script>
-import MoreScroll from 'iscroll/build/iscroll-probe';
+import MiniScroll from 'iscroll/build/iscroll';
 export default {
   data(){
     return {
@@ -100,8 +100,7 @@ export default {
       is404: false
     }
   },
-  created(){
-    
+  mounted(){
     this.getData();
   },
   methods: {
@@ -109,25 +108,27 @@ export default {
       this.$router.go(-1);
     },
     getData() {
-      const user = new Promise((resolve,reject) => {
-    	  this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
+      const user = new Promise((resolve) => {
+        let uId = this.$route.params.uId;
+    	  this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+uId ).then((res)=>{
           this.user = res.data.data;
           resolve(this.user);
         })
       })
-      const detail = new Promise((resolve,reject) => {
-    	  this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
+      const detail = new Promise((resolve) => {
+        let docId = this.$route.params.docId;
+    	  this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+docId ).then((res)=>{
           this.detail = res.data.data;
           resolve(this.detail);
         })
       })
-      const comments = new Promise((resolve,reject) => {
-    	  this.$axios.get(`https://api.rozwel.club/api/bilibili/api/comments?uid=${this.$route.params.docId}`).then(res=>{
+      const comments = new Promise((resolve) => {
+        this.$axios.get(`https://api.rozwel.club/api/bilibili/api/comments?uid=${this.$route.params.docId}`).then((res)=>{
           this.comments = res.data.data;
           resolve(this.comments);
         })
       })
-      Promise.all([user, detail, comments]).then((res) => {
+      Promise.all([user, detail, comments]).then(() => {
         setTimeout(() => {
           this.initScroll();
         },600)
@@ -143,7 +144,7 @@ export default {
       // })
     },
     initScroll() {   // 初始化iscroll
-      let IScroll = MoreScroll;
+      let IScroll = MiniScroll;
       this.myScroll = new IScroll('.work_container', {
           disableMouse: false,
           scrollbars: false,
@@ -157,7 +158,10 @@ export default {
 }
 </script>
 <style lang="stylus">
-
+.fade-enter-active, .fade-leave-active
+  transition: all 0.2s
+.fade-enter, .fade-leave-to
+  transform: translate3d(100%, 0, 0)
 .work-detail{
   position: absolute;
   background: #222;

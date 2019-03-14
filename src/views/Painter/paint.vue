@@ -22,14 +22,21 @@ export default {
     painter,
     works
   },
-  created(){
+  mounted(){
     this.getData();
     // if(this.$route.path === "/paint"){
-    //   window.addEventListener('scroll', this.getScrollTop);
+    //   window.addEventListener('scroll', scroll);
     // }
     setTimeout(()=>{
       this.initScroll();
     },600)
+  },
+  watch: {
+    '$route'(to, from) {
+      if(to.path === '/paint' && this.myScroll){
+        this.myScroll.refresh();
+      }
+    }
   },
   data(){
     return {
@@ -37,7 +44,6 @@ export default {
       data: null,
       scrollTop: '',
       timer: '',
-      show: true,
     }
   },
   methods: {
@@ -94,6 +100,7 @@ export default {
   height: 100vh;
   #wrapper{
     padding-top: 2.166666rem;
+    touch-action: none;
   }
   .illData{
     padding: 10px;

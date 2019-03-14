@@ -26,7 +26,7 @@ export default {
       data: '',
     }
   },
-  created(){
+  mounted(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/rank').then(res=>{
       this.month = res.data.month.data.items;
       this.week = res.data.week.data.items;
@@ -74,7 +74,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 .Rank-list{
   position: absolute;
   top: 1.2rem;
