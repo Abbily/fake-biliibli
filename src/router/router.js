@@ -22,7 +22,7 @@ const routes = [
     meta: {
       dontKeepAlive: true,
       label: '画友'
-    }
+    },
   },
   {
     path: 'detail/:docId/:uId',

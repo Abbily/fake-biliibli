@@ -1,10 +1,13 @@
 <template>
   <div class="paint-footer">
-    <slide/>
-    <painter/>
-    <cTitle v-if="data">推荐作品</cTitle>
-    <div class="illData" ref='illData'>
-      <works v-for="i in data" :illData="i" :key="i.item.doc_id" v-if="data" @onChildChange="onChildChange"/>
+    <div id="wrapper">
+      <slide/>
+      <painter/>
+      <cTitle v-if="data">推荐作品</cTitle>
+      <div class="illData" ref='illData' v-if="data">
+        <works v-for="i in data" :illData="i" :key="i.item.doc_id" @onChildChange="onChildChange"/>
+      </div>
+      <router-view/>
     </div>
   </div>
 </template>
@@ -12,6 +15,7 @@
 import slide from './Slide/slide.vue';
 import painter from './RecommendPainter/RecommendPainter.vue';
 import works from './Recommendworks/Recommendworks.vue';
+import MoreScroll from 'iscroll/build/iscroll-probe';
 export default {
   components:{
     slide,
@@ -20,9 +24,12 @@ export default {
   },
   created(){
     this.getData();
-    if(this.$route.path === "/paint"){
-      window.addEventListener('scroll', this.getScrollTop);
-    }
+    // if(this.$route.path === "/paint"){
+    //   window.addEventListener('scroll', this.getScrollTop);
+    // }
+    setTimeout(()=>{
+      this.initScroll();
+    },600)
   },
   data(){
     return {
@@ -39,17 +46,44 @@ export default {
     },
     getData(page=1){
       this.$axios.get('https://api.rozwel.club/api/bilibili/api/recommends?page='+page).then(res=>{
-      	this.data?this.data.push(...res.data.data.items):(this.data=res.data.data.items);
+        this.data ? this.data.push(...res.data.data.items) : (this.data=res.data.data.items);
+        if(this.myScroll) {
+          setTimeout(() => {
+            this.myScroll.refresh();
+          },300)
+        }
       });
     },
-    getScrollTop(){
-      this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
+    // getScrollTop(){
+    //   this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
+    //   clearTimeout(this.timer);
+    //   this.timer = setTimeout(()=>{
+    //     if(this.scrollTop>9380 * this.page){
+    //       this.getData(++this.page);
+    //     }
+    //   },200);
+    // },
+    scrollContent() {
       clearTimeout(this.timer);
-      this.timer = setTimeout(()=>{
-        if(this.scrollTop>9380 * this.page){
+      this.timer = setTimeout(() => {
+        if(-this.myScroll.y > 9380 * this.page){
           this.getData(++this.page);
         }
       },200);
+    },
+    initScroll() {   // 初始化iscroll
+      let IScroll = MoreScroll;
+      this.myScroll = new IScroll('.paint-footer', {
+          disableMouse: false,
+          scrollbars: false,
+          probeType: 3, // 3的时候实时监听事件
+      });
+      document.querySelector(`.paint-footer`).addEventListener('touchmove', e=>{
+        e.preventDefault();
+      })
+      if (this.myScroll) {
+        this.myScroll.on('scroll', this.scrollContent);
+      }
     }
   }
 }
@@ -57,8 +91,10 @@ export default {
 <style lang="stylus">
 .paint-footer{
   width: 100%;
-  position: absolute;
-  top: 2.166666rem;
+  height: 100vh;
+  #wrapper{
+    padding-top: 2.166666rem;
+  }
   .illData{
     padding: 10px;
   }

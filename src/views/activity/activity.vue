@@ -1,19 +1,25 @@
 <template>
   <div class="activity-name">
-    <div class="actcard" v-for="item in data" @click="jumpBili(item)" :key="item.title" v-if="data">
-      <div class="img_container">
-        <img :src="item.cover"/>
-        <div class="fin">{{item.desc}}</div>
+    <div id="activity-wrapper">
+      <div v-if="data">
+        <div class="actcard" v-for="item in data" @click="jumpBili(item)" :key="item.title">
+          <div class="img_container">
+            <img :src="item.cover"/>
+            <div class="fin">{{item.desc}}</div>
+          </div>
+          <div class="act_intro">
+            <div class="title">{{item.title}}</div>
+            <div class="date">{{item.start_time | time1}}</div>
+          </div>
+        </div>
       </div>
-      <div class="act_intro">
-        <div class="title">{{item.title}}</div>
-        <div class="date">{{item.start_time | time1}}</div>
-      </div>
+      <loading v-else/>
+      <div v-if="data" style="height: 2.6rem"></div>
     </div>
-    <loading v-else/>
   </div>
 </template>
 <script>
+import MoreScroll from 'iscroll/build/iscroll-probe';
 export default {
   data(){
     return {
@@ -32,12 +38,26 @@ export default {
   created(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/center').then((res)=>{
       this.data = res.data.data.items;
+      setTimeout(() => {
+        this.initScroll();
+      })
     })
   },
   methods: {
     jumpBili(url){
       window.location.href=url.link;
-    }
+    },
+    initScroll() {   // 初始化iscroll
+      let IScroll = MoreScroll;
+      this.myScroll = new IScroll('.activity-name', {
+          disableMouse: false,
+          scrollbars: false,
+          // probeType: 3, // 3的时候实时监听事件
+      });
+      document.querySelector(`.activity-name`).addEventListener('touchmove', e=>{
+        e.preventDefault();
+      })
+    },
   }
 }
 </script>
@@ -46,6 +66,7 @@ export default {
   position: relative;
   top: 2.2rem;
   padding: 0 .266666rem .266666rem;
+  height: 100vh;
   .actcard{
     border-radius: .133333rem;
     background: #444;

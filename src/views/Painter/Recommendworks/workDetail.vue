@@ -1,88 +1,95 @@
 <template>
   <transition name="slide">
     <div class="work-detail">
-      <cHeader :title="title" :needBack="true" :search="false"></cHeader>
-      <div class="illustration" v-if="user && detail">
-        <div class="drawer">
-          <div class="img_container">
-            <img :src="user.user.face"/>
-          </div>
-          <div class="drawer_name">{{user.user.name}}</div>
-          <div class="drawer_level">UP{{user.user.master_level}}</div>
-        </div>
-        <div class="main">
-          <div class="title">{{detail.item.title}}</div>
-          <div class="desc">{{detail.item.description}}</div>
-          <div class="tags">
-            <span class="tag" v-for="(item, index) in detail.item.tags" :key="index">
-              <a>{{item.tag}}</a>
-            </span>
-          </div>
-          <div id="ILC">
-            <div v-if="detail.item.pictures">
-              <img v-for="(i, index) in detail.item.pictures" :key=index :src="i.img_src"/>
-            </div>
-            <loading v-else/>
-            <cTitle>热门评论</cTitle>
-            <div class="noreply">
-              <div v-for="item in comments.hots" :key="item.rpid">
-                <div class="comment_box" v-if="comments.hots">
-                  <div class="img_container">
-                    <img :src="item.member.avatar"/>
-                  </div>
-                  <div class="content">
-                    <div class="user_box">
-                      <div class="uname">{{item.member.uname}}</div>
-                      <div class="ulevel">L{{item.member.level_info.current_level}}</div>
-                    </div>
-                    <div class="comment">{{item.content.message}}</div>
-                  </div>
+      <div class="work_container">
+        <div id="wrapper_container">
+            <div class="illustration" v-if="user && detail">
+              <div class="drawer">
+                <div class="img_container">
+                  <img :src="user.user.face"/>
                 </div>
+                <div class="drawer_name">{{user.user.name}}</div>
+                <div class="drawer_level">UP{{user.user.master_level}}</div>
               </div>
-              <div v-if="!comments.hots" class="noreply1">暂无热门评论</div>
-            </div>
-            <cTitle>评论</cTitle>
-            <div class="comments">
-              <div v-if="comments">
-                <div class="comment_box" v-for="item in comments.replies" :key="item.rpid">
-                  <div class="img_container">
-                    <img :src="item.member.avatar"/>
+              <div class="main">
+                <div class="title">{{detail.item.title}}</div>
+                <div class="desc">{{detail.item.description}}</div>
+                <div class="tags">
+                  <span class="tag" v-for="(item, index) in detail.item.tags" :key="index">
+                    <a>{{item.tag}}</a>
+                  </span>
+                </div>
+                <div id="ILC">
+                  <div v-if="detail.item.pictures">
+                    <img v-for="(i, index) in detail.item.pictures" :key=index :src="i.img_src"/>
                   </div>
-                  <div class="content">
-                    <div class="user_box">
-                      <div class="uname">{{item.member.uname}}</div>
-                      <div class="ulevel">L{{item.member.level_info.current_level}}</div>
-                    </div>
-                    <div class="comment">{{item.content.message}}</div>
-                    <div class="replies">
-                      <div v-if="comments.hots">
-                        <div class="comment_box" v-for="item in item.replies" :key="item.rpid">
-                          <div class="img_container">
-                            <img :src="item.member.avatar"/>
+                  <loading v-else/>
+                  <cTitle>热门评论</cTitle>
+                  <div class="noreply">
+                    <div v-for="item in comments.hots" :key="item.rpid">
+                      <div class="comment_box" v-if="comments.hots">
+                        <div class="img_container">
+                          <img :src="item.member.avatar"/>
+                        </div>
+                        <div class="content">
+                          <div class="user_box">
+                            <div class="uname">{{item.member.uname}}</div>
+                            <div class="ulevel">L{{item.member.level_info.current_level}}</div>
                           </div>
-                          <div class="content">
-                            <div class="user_box">
-                              <div class="uname">{{item.member.uname}}</div>
-                              <div class="ulevel">L{{item.member.level_info.current_level}}</div>
-                            </div>
-                            <div class="comment">{{item.content.message}}</div>
-                          </div>
+                          <div class="comment">{{item.content.message}}</div>
                         </div>
                       </div>
                     </div>
+                    <div v-if="!comments.hots" class="noreply1">暂无热门评论</div>
+                  </div>
+                  <cTitle>评论</cTitle>
+                  <div class="comments">
+                    <div v-if="comments">
+                      <div class="comment_box" v-for="item in comments.replies" :key="item.rpid">
+                        <div class="img_container">
+                          <img :src="item.member.avatar"/>
+                        </div>
+                        <div class="content">
+                          <div class="user_box">
+                            <div class="uname">{{item.member.uname}}</div>
+                            <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                          </div>
+                          <div class="comment">{{item.content.message}}</div>
+                          <div class="replies">
+                            <div v-if="comments.hots">
+                              <div class="comment_box" v-for="item in item.replies" :key="item.rpid">
+                                <div class="img_container">
+                                  <img :src="item.member.avatar"/>
+                                </div>
+                                <div class="content">
+                                  <div class="user_box">
+                                    <div class="uname">{{item.member.uname}}</div>
+                                    <div class="ulevel">L{{item.member.level_info.current_level}}</div>
+                                  </div>
+                                  <div class="comment">{{item.content.message}}</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div v-if="!comments.replies" class="noreply1">暂无评论</div>
+                    </div>
+                    <loading v-else/>
+                    <div v-if="comments" style="height: 0.6rem"></div>
                   </div>
                 </div>
-                <div v-if="!comments.replies" class="noreply1">暂无评论</div>
               </div>
-              <loading v-else/>
             </div>
-          </div>
         </div>
       </div>
+      <cHeader :title="title" :needBack="true" :search="false"></cHeader>
+      
     </div>
   </transition>
 </template>
 <script>
+import MoreScroll from 'iscroll/build/iscroll-probe';
 export default {
   data(){
     return {
@@ -102,16 +109,48 @@ export default {
       this.$router.go(-1);
     },
     getData() {
-      this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
-        this.user = res.data.data
+      const user = new Promise((resolve,reject) => {
+    	  this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
+          this.user = res.data.data;
+          resolve(this.user);
+        })
       })
-      this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
-        this.detail = res.data.data;
+      const detail = new Promise((resolve,reject) => {
+    	  this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
+          this.detail = res.data.data;
+          resolve(this.detail);
+        })
       })
-      this.$axios.get(`https://api.rozwel.club/api/bilibili/api/comments?uid=${this.$route.params.docId}`).then(res=>{
-        this.comments = res.data.data;
+      const comments = new Promise((resolve,reject) => {
+    	  this.$axios.get(`https://api.rozwel.club/api/bilibili/api/comments?uid=${this.$route.params.docId}`).then(res=>{
+          this.comments = res.data.data;
+          resolve(this.comments);
+        })
       })
-    }
+      Promise.all([user, detail, comments]).then((res) => {
+        this.initScroll();
+      })
+      // this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.uId).then(res=>{
+      //   this.user = res.data.data
+      // })
+      // this.$axios.get('https://api.rozwel.club/api/bilibili/api/illustration/detail?doc_id='+this.$route.params.docId).then(res=>{
+      //   this.detail = res.data.data;
+      // })
+      // this.$axios.get(`https://api.rozwel.club/api/bilibili/api/comments?uid=${this.$route.params.docId}`).then(res=>{
+      //   this.comments = res.data.data;
+      // })
+    },
+    initScroll() {   // 初始化iscroll
+      let IScroll = MoreScroll;
+      this.myScroll = new IScroll('.work_container', {
+          disableMouse: false,
+          scrollbars: false,
+          // probeType: 3, // 3的时候实时监听事件
+      });
+      document.querySelector(`.work_container`).addEventListener('touchmove', e=>{
+        e.preventDefault();
+      })
+    },
   }
 }
 </script>
@@ -123,6 +162,12 @@ export default {
   z-index: 27;
   width: 100%;
   height: 100%;
+  .work_container{
+    height: 100vh;
+    #wrapper_container{
+      touch-action: none;
+    }
+  }
   .illustration{
     padding: .133333rem;
     box-sizing: border-box;

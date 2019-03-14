@@ -1,5 +1,5 @@
 <template>
-  <div id="card" @click="jumpDetail(illData)">
+  <div class="recommend-card" @click="jumpDetail(illData)">
     <div class="ill_panel">
       <div class="img_container" :style="{backgroundImage:'url('+illData.item.pictures[0].img_src+')'}">
       </div>
@@ -38,7 +38,7 @@ export default{
 }
 </script>
 <style lang="stylus">
-#card{
+.recommend-card{
   border-radius: 0.133333rem;
   background: #444;
   box-sizing: border-box;
