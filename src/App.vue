@@ -19,6 +19,16 @@ export default {
     'v-header': header,
     'v-nav': nav
   },
+  mounted(){
+    window.addEventListener('mousewheel', this.dontWheel, false)
+  },
+  methods: {
+    dontWheel() {
+      let e = e || window.event;
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  }
 }
 </script>
 

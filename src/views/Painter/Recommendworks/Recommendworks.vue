@@ -37,7 +37,7 @@ export default{
   }
 }
 </script>
-<style lang="stylus">
+<style lang="scss">
 .recommend-card{
   border-radius: 0.133333rem;
   background: #444;

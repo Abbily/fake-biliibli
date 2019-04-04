@@ -88,15 +88,6 @@ export default {
       isShow: true,
     }
   },
-  // watch: {
-  // 	'$route'(to, from) {
-  // 		if(to.name === 'drawerDetail'){
-  // 			this.isShow = false;
-  // 		} else {
-  // 			this.isShow = true;
-  // 		}
-  // 	}
-  // },
   mounted(){
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/user?uid='+this.$route.params.id).then(res=>{
       this.data = res.data.data;
@@ -107,9 +98,6 @@ export default {
         this.initScroll();
       },600)
     })
-    // if(this.$route.name === "drawer"){
-    //   window.addEventListener('scroll', this.getScrollTop);
-    // }
   },
   methods: {
     initScroll() {   // 初始化iscroll
@@ -148,26 +136,16 @@ export default {
         }
       })
     },
-    // getScrollTop(){
-    //   this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-    //   let fix = this.$refs.d_fix;
-    //   clearTimeout(this.timer);
-    //   this.timer = setTimeout(()=>{
-    //     if(this.scrollTop>168 && fix){
-    //       fix.style.opacity = 1;
-    //     }else if(this.scrollTop<168 && fix){
-    //       fix.style.opacity = 0;
-    //     }
-    //   },200);
-    // }
   }
 }
 </script>
-<style lang="stylus">
-.slide-enter-active, .slide-leave-active
+<style lang="scss">
+.slide-enter-active, .slide-leave-active{
   transition: all 0.2s
-.slide-enter, .slide-leave-to
+}
+.slide-enter, .slide-leave-to{
   transform: translate3d(100%, 0, 0)
+}
 .drawer-container{
     background: #222;
     position: absolute;

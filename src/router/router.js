@@ -2,14 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
-const paint = () => import('@/views/Painter/paint.vue');
-const rank = () => import('@/views/rank/rank.vue');
-const activity = () => import('@/views/activity/activity.vue');
-const drawer = () => import('@/views/Painter/RecommendPainter/drawer.vue');
-const drawerDetail = () => import('@/views/Painter/RecommendPainter/drawerDetail.vue');
-const detail = () => import('@/views/Painter/Recommendworks/workDetail.vue');
-const search = () => import('@/views/search/search.vue');
-
 const routes = [
   {
     path: "/",
@@ -18,7 +10,7 @@ const routes = [
   {
     path: '/paint',
     name: 'paint',
-    component: paint,
+    component: () => import('@/views/Painter/paint.vue'),
     meta: {
       dontKeepAlive: true,
       label: '画友'
@@ -27,26 +19,26 @@ const routes = [
       {
         path: 'detail/:docId/:uId',
         name: 'detail',
-        component: detail,
+        component: () => import('@/views/Painter/Recommendworks/workDetail.vue'),
       },
     ]
   },
   {
     path: '/drawer/:id',
     name: 'drawer',
-    component: drawer,
+    component: () => import('@/views/Painter/RecommendPainter/drawer.vue'),
     children: [
       {
         path: 'drawerDetail/:uid',
         name: 'drawerDetail',
-        component: drawerDetail,
+        component: () => import('@/views/Painter/RecommendPainter/drawerDetail.vue'),
       },
     ]
   },
   {
     path: '/rank',
     name: 'rank',
-    component: rank,
+    component: () => import('@/views/rank/rank.vue'),
     meta: {
       dontKeepAlive: true,
       label: '排行榜'
@@ -55,7 +47,7 @@ const routes = [
   {
     path: '/activity',
     name: 'activity',
-    component: activity,
+    component: () => import('@/views/activity/activity.vue'),
     meta: {
       label: '活动中心'
     }
@@ -63,7 +55,7 @@ const routes = [
   {
     path: '/search',
     name: 'search',
-    component: search
+    component: () => import('@/views/search/search.vue')
   }
 ]
 

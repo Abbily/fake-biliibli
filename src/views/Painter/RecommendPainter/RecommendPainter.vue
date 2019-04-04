@@ -35,7 +35,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
+<style lang="scss">
 .painter-name{
   width: 100%;
   position: relative;

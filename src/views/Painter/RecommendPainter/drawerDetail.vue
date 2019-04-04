@@ -3,7 +3,8 @@
     <div class="drawer_box">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="drawerDetail">
-        <div id="wrapper_box" @touchmove.prevent>
+      <Iscroll ref="Iscroll">
+        <!-- <div id="wrapper_box" @touchmove.prevent> -->
           <div class="illustration" v-if="user && detail">
             <div class="drawer">
               <div class="img_container">
@@ -77,13 +78,13 @@
               </div>
             </div>
           </div>
-        </div>
+        <!-- </div> -->
+      </Iscroll>
       </div>
     </div>
   </transition>
 </template>
 <script>
-import MiniScroll from 'iscroll/build/iscroll';
 export default {
   data(){
     return {
@@ -115,31 +116,22 @@ export default {
     })
     Promise.all([user,detail,comments]).then((res)=>{
     	setTimeout(()=>{
-    		this.initScroll();
+    		this.$refs['Iscroll'].initScroll();
     	},600)
     })
     
   },
   methods: {
-    initScroll() {   // 初始化iscroll
-      let IScroll = MiniScroll;
-      this.myScroll = new IScroll('.drawerDetail', {
-          disableMouse: false,
-          scrollbars: false,
-          // probeType: 3, // 3的时候实时监听事件
-      });
-      document.querySelector(`.drawerDetail`).addEventListener('touchmove', e=>{
-        e.preventDefault();
-      })
-    },
   }
 }
 </script>
-<style lang="stylus">
-.slide-enter-active, .slide-leave-active
+<style lang="scss">
+.slide-enter-active, .slide-leave-active{
   transition: all 0.2s
-.slide-enter, .slide-leave-to
+}
+.slide-enter, .slide-leave-to{
   transform: translate3d(100%, 0, 0)
+}
 .drawer_box{
     position: absolute;
     top:0;
