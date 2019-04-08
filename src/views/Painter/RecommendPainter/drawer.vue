@@ -3,7 +3,7 @@
     <div class="drawer-container">
       <cHeader :title="title" :needBack="true" :search="false"></cHeader>
       <div class="drawer-Deatil">
-        <div id="wrapper">
+        <Iscroll ref="Iscroll" :probeType="3">
           <div class="drawer_container">
             <div class="drawer_bg">
               <img :src="data.user.face"/>
@@ -43,7 +43,7 @@
             <div style="height: 1.2rem"/>
           </div>
           <loading v-if="!pic"/>
-        </div>
+        </Iscroll>
         
         <div ref="d_fix" v-if="show" class="drawer_container_fixed">
           <div class="drawer_circle">
@@ -64,7 +64,6 @@
   </transition>
 </template>
 <script>
-import MoreScroll from 'iscroll/build/iscroll-probe';
 export default {
   name: 'drawer',
   data(){
@@ -95,25 +94,12 @@ export default {
     this.$axios.get('https://api.rozwel.club/api/bilibili/api/drawerillustration?uid='+this.$route.params.id).then(res=>{
       this.pic = res.data.data.items;
       setTimeout(() => {
-        this.initScroll();
+        this.$refs['Iscroll'].initScroll();
+        this.$refs['Iscroll'].remountSrcoll(this.scrollContent(100));
       },600)
     })
   },
   methods: {
-    initScroll() {   // 初始化iscroll
-      let IScroll = MoreScroll;
-      this.myScroll = new IScroll('.drawer-Deatil', {
-          disableMouse: false,
-          scrollbars: false,
-          probeType: 3, // 3的时候实时监听事件
-      });
-      document.querySelector(`.drawer-Deatil`).addEventListener('touchmove', e=>{
-        e.preventDefault();
-      })
-      if (this.myScroll) {
-        this.myScroll.on('scroll', this.scrollContent);
-      }
-    },
     back(){
       this.$router.go(-1);
     },
@@ -125,16 +111,19 @@ export default {
         }
       })
     },
-    scrollContent() {
+    scrollContent(wait) {
       let fix = this.$refs.d_fix;
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        if(-this.myScroll.y > 168) {
-          fix.style.opacity = 1;
-        }else if(this.scrollTop<168 && fix){
-          fix.style.opacity = 0;
-        }
-      })
+      let timeout;
+      return ()=>{
+        if(timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          if(-this.$refs['Iscroll'].myScroll.y > 168) {
+            fix.style.opacity = 1;
+          }else if(this.$refs['Iscroll'].myScroll.y<168 && fix){
+            fix.style.opacity = 0;
+          }
+        },wait)
+      }
     },
   }
 }
@@ -229,20 +218,15 @@ export default {
       align-items: center;
       justify-content: center;
       .drawer_bg{
-        width: 100%;
-        height: 0;
-        padding-top: 8rem;
-        position: absolute;
-        top: 0;
-        left: 0;
+        width: 100vw;
         overflow: hidden;
         img{
           position: absolute;
-          top: -10px;
+          margin-top: -1.5rem;
           left: 0;
           width: 100%;
           z-index: -1;
-          filter: blur(15px);
+          filter: blur(0.3rem);
         }
       }
       .drawer_circle{
